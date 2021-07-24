@@ -9,7 +9,6 @@ class TelegramController extends Controller
     public function process()
     {
         $update = Telegram::bot()->getWebhookUpdate();
-
         $message = $update->getMessage();
 
         $user = $message->from;
