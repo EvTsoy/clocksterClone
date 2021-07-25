@@ -38,7 +38,6 @@ abstract class AbstractFlow
         Log::debug(static::class . '.run', [
             'user' => $this->user->toArray(),
             'message' => $this->message->toArray(),
-            'state' => $state
         ]);
 
         foreach ($this->triggers as $trigger)
