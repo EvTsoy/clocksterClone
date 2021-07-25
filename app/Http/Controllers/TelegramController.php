@@ -13,10 +13,14 @@ class TelegramController extends Controller
         $user = $message->from;
 
         //Сохраненяем пользователя
-        $user = app()->call('App\Http\Controllers\UserController@store', $user);
+        $user = app()->call('App\Http\Controllers\UserController@store', [
+            'user' => $user
+        ]);
 
         //Сохранение сообщений
-        app()->call('App\Http\Controllers\MessageController@store', $message);
+        app()->call('App\Http\Controllers\MessageController@store', [
+            'message' => $message
+        ]);
 
         if(hash_equals($message->text, '/start'))
         {
