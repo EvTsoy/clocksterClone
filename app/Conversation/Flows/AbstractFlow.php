@@ -38,19 +38,4 @@ abstract class AbstractFlow
         return Telegram::bot();
     }
 
-    public function run()
-    {
-        Log::debug(static::class . '.run', [
-            'user' => $this->user->toArray(),
-            'message' => $this->message->toArray(),
-        ]);
-
-        foreach ($this->triggers as $trigger)
-        {
-            if(hash_equals($trigger, $this->message->message_text))
-            {
-                $this->first();
-            }
-        }
-    }
 }
