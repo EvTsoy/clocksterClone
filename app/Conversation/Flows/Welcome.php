@@ -24,12 +24,10 @@ class Welcome extends AbstractFlow
                         ],
                         [
                         'text' => 'Принять',
-                        'callback_data' => 'Accepted'
+                        'callback_data' => 'accepted'
                         ]
                     ]
                 ],
-                'resize_keyboard' => true,
-                'one_time_keyboard' => true
             ])
         ]);
     }

@@ -29,9 +29,10 @@ class TelegramController extends Controller
             'message' => $message
         ]);
 
+        $state =  $update->isType('callback_query') ? $update->callbackQuery->data : '';
+
         //Начало диалога
         $conversation = new Conversation();
-        $conversation->start($user, $message);
-
+        $conversation->start($user, $message, $state);
     }
 }

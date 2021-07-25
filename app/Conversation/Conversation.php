@@ -2,6 +2,7 @@
 
 namespace App\Conversation;
 
+use App\Conversation\Flows\Fullname;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
 use App\Models\User;
@@ -10,10 +11,11 @@ use Log;
 class Conversation
 {
     protected $flows = [
-        Welcome::class
+        Welcome::class,
+        Fullname::class
     ];
 
-    public function start(User $user, Message $message)
+    public function start(User $user, Message $message, $state)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
@@ -23,9 +25,9 @@ class Conversation
         foreach ($this->flows as $flow)
         {
             $flow = app($flow);
-
             $flow->setUser($user);
             $flow->setMessage($message);
+            $flow->setState($state);
 
             $flow->run();
         }
