@@ -12,10 +12,9 @@ class Conversation
 {
     protected $flows = [
         Welcome::class,
-        Fullname::class
     ];
 
-    public function start(User $user, Message $message, $state)
+    public function start(User $user, Message $message)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
@@ -27,9 +26,12 @@ class Conversation
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
-            $flow->setState($state);
-
-            $flow->run();
         }
+    }
+
+    public function intro()
+    {
+        $flow = app(Fullname::class);
+        $flow->intro();
     }
 }
