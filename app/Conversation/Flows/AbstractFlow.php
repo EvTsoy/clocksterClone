@@ -55,7 +55,7 @@ abstract class AbstractFlow
 
         if (hash_equals($this->state, 'accepted'))
         {
-            $this->intro();
+            $this->first();
         }
 
     }
