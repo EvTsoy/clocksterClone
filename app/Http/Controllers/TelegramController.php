@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation\Conversation;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TelegramController extends Controller
@@ -18,16 +19,20 @@ class TelegramController extends Controller
         ]);
 
         //Сохранение сообщений
-        app()->call('App\Http\Controllers\MessageController@store', [
+        $message = app()->call('App\Http\Controllers\MessageController@store', [
             'message' => $message
         ]);
 
-        if(hash_equals($message->text, '/start'))
-        {
-            Telegram::bot()->sendMessage([
-                'chat_id' => $user->user_telegram_id,
-                'text' => 'Это Клон. Для продолжения работы с ботом вам необходимо ознакомиться и принять условия "Политики конфиденциальности". Если вы согласны с условиями, то нажмите кнопку "Принять"'
-            ]);
-        }
+        //Начало диалога
+        $conversation = new Conversation();
+        $conversation->start($user, $message);
+
+//        if(hash_equals($message->text, '/start'))
+//        {
+//            Telegram::bot()->sendMessage([
+//                'chat_id' => $user->user_telegram_id,
+//                'text' => 'Это Клон. Для продолжения работы с ботом вам необходимо ознакомиться и принять условия "Политики конфиденциальности". Если вы согласны с условиями, то нажмите кнопку "Принять"'
+//            ]);
+//        }
     }
 }

@@ -25,7 +25,7 @@ class MessageController extends Controller
      */
     public function store($message)
     {
-        Message::create([
+        return Message::create([
             'user_telegram_id' => $message->from->id,
             'message_id' => $message->messageId,
             'message_text' => $message->text
