@@ -27,7 +27,6 @@ class Conversation
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
-            $flow->setState($state);
             $flow->run();
         }
     }
