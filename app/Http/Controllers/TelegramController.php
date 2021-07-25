@@ -33,6 +33,15 @@ class TelegramController extends Controller
 
         //Начало диалога
         $conversation = new Conversation();
-        $conversation->start($user, $message, $state);
+
+        if (hash_equals($state, 'welcome'))
+        {
+            $conversation->start($user, $message);
+        }
+
+        if (hash_equals($state, 'accepted'))
+        {
+            $conversation->intro($user);
+        }
     }
 }

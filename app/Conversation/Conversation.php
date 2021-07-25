@@ -12,10 +12,9 @@ class Conversation
 {
     protected $flows = [
         Welcome::class,
-        Fullname::class
     ];
 
-    public function start(User $user, Message $message, $state)
+    public function start(User $user, Message $message)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
@@ -27,17 +26,14 @@ class Conversation
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
-
-            if(hash_equals($state, 'welcome'))
-            {
-                $flow->first();
-            }
-
-            if(hash_equals($state, 'accepted'))
-            {
-                $flow->intro();
-            }
-
+            $flow->run();
         }
+    }
+
+    public function intro(User $user)
+    {
+        $flow = app(Fullname::class);
+        $flow->setUser($user);
+        $flow->intro();
     }
 }
