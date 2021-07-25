@@ -23,12 +23,12 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($user_telegram_id, $message_id, $message_text)
+    public function store($message)
     {
         Message::create([
-            'user_telegram_id' => $user_telegram_id,
-            'message_id' => $message_id,
-            'message_text' => $message_text
+            'user_telegram_id' => $message->from->id,
+            'message_id' => $message->messageId,
+            'message_text' => $message->text
         ]);
     }
 

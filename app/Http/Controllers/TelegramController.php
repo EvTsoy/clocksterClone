@@ -10,24 +10,13 @@ class TelegramController extends Controller
     {
         $update = Telegram::bot()->getWebhookUpdate();
         $message = $update->getMessage();
-
         $user = $message->from;
 
         //Сохраненяем пользователя
-        $user = app()->call('App\Http\Controllers\UserController@store', [
-                'user_telegram_id' => $user->id,
-                'first_name' => $user->firstName,
-                'last_name' => $user->lastName,
-                'username' => $user->username
-            ]
-        );
+        $user = app()->call('App\Http\Controllers\UserController@store', $user);
 
         //Сохранение сообщений
-        app()->call('App\Http\Controllers\MessageController@store', [
-            'user_telegram_id' => $user->id,
-            'message_id' => $message->messageId,
-            'message_text' => $message->text
-        ]);
+        app()->call('App\Http\Controllers\MessageController@store', $message);
 
         if(hash_equals($message->text, '/start'))
         {

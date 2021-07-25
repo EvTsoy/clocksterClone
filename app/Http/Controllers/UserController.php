@@ -23,17 +23,17 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($user_telegram_id, $first_name, $last_name, $username)
+    public function store($user)
     {
         $values = [
-            'user_telegram_id' => $user_telegram_id,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'username' => $username
+            'user_telegram_id' => $user->id,
+            'first_name' => $user->firstName,
+            'last_name' => $user->lastName,
+            'username' => $user->username
         ];
 
         return User::firstOrCreate([
-            'user_telegram_id' => $user_telegram_id
+            'user_telegram_id' => $user->id
         ], $values);
     }
 
@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::where('$user_telegram_id', $id)->firstOrFail();
+        //
     }
 
     /**
