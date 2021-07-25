@@ -12,7 +12,10 @@ class Welcome extends AbstractFlow
 
     public function first()
     {
-        $buttons = ['Политика конфидециальности', 'Принять'];
+        $buttons = [
+            ['Политика конфидециальности'],
+            ['Принять']
+        ];
 
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
