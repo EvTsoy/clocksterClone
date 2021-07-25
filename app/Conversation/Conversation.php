@@ -12,6 +12,7 @@ class Conversation
 {
     protected $flows = [
         Welcome::class,
+        Fullname::class,
     ];
 
     public function start(User $user, Message $message, string $state)

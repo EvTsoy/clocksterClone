@@ -53,7 +53,7 @@ abstract class AbstractFlow
             }
         }
 
-        if (hash_equals($state, 'accepted'))
+        if (hash_equals($this->state, 'accepted'))
         {
             $this->intro();
         }
