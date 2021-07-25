@@ -10,8 +10,6 @@ class Welcome extends AbstractFlow
         '/start'
     ];
 
-    protected $state = 'welcome';
-
     public function first()
     {
         $this->telegram()->sendMessage([

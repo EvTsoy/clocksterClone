@@ -4,8 +4,6 @@ namespace App\Conversation\Flows;
 
 class Fullname extends AbstractFlow
 {
-    protected $state = 'accepted';
-
     public function intro()
     {
         $this->telegram()->sendMessage([

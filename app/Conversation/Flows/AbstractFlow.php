@@ -38,7 +38,7 @@ abstract class AbstractFlow
         return Telegram::bot();
     }
 
-    public function run()
+    public function run($state)
     {
         Log::debug(static::class . '.run', [
             'user' => $this->user->toArray(),
@@ -53,7 +53,7 @@ abstract class AbstractFlow
             }
         }
 
-        if (hash_equals($this->state, 'accepted'))
+        if (hash_equals($state, 'accepted'))
         {
             $this->intro();
         }
