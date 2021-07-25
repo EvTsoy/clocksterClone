@@ -23,7 +23,8 @@ class Welcome extends AbstractFlow
                         'url' => 'https://clockster.com/ru/confidentiality/'
                         ],
                         [
-                        'text' => 'Принять'
+                        'text' => 'Принять',
+                        'callback_data' => 'Accepted'
                         ]
                     ]
                 ],
