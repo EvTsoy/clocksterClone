@@ -26,6 +26,7 @@ class Conversation
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
+            $flow->run();
         }
     }
 
