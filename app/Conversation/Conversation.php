@@ -14,7 +14,7 @@ class Conversation
         Welcome::class,
     ];
 
-    public function start(User $user, Message $message)
+    public function start(User $user, Message $message, string $state)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
@@ -26,14 +26,8 @@ class Conversation
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
+            $flow->setState($state);
             $flow->run();
         }
-    }
-
-    public function intro(User $user)
-    {
-        $flow = app(Fullname::class);
-        $flow->setUser($user);
-        $flow->intro();
     }
 }

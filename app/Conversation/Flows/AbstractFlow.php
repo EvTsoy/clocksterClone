@@ -52,5 +52,10 @@ abstract class AbstractFlow
                 $this->first();
             }
         }
+
+        if (hash_equals($state, 'accepted'))
+        {
+            $this->intro();
+        }
     }
 }
