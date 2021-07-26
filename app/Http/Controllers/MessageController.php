@@ -28,7 +28,7 @@ class MessageController extends Controller
         return Message::create([
             'user_telegram_id' => $message->from->id,
             'message_id' => $message->messageId,
-            'message_text' => $message->text
+            'message_text' => $message->text ?? ''
         ]);
     }
 

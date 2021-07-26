@@ -11,6 +11,11 @@ class Contacts extends AbstractFlow
 {
     public function first()
     {
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'contacts'
+        ]);
+
         $btn = Keyboard::button([
             'text' => 'Share my phone number',
             'request_contact' => true
