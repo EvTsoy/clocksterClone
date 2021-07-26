@@ -30,11 +30,6 @@ class Conversation
             $flow->setContext($context);
 
             $flow->run();
-
-            if(is_string($state)) {
-                $this->context->save($user, $flow, $state);
-                break;
-            }
         }
     }
 }
