@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::where($id, 'user_telegram_id')->first();
+        return User::where('user_telegram_id', $id)->first();
     }
 
     /**
