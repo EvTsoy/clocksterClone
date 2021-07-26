@@ -38,6 +38,10 @@ class TelegramController extends Controller
             $user = $message->from;
             $phoneNumber = $message->contact->phoneNumber ?? 'Unavailable';
 
+            if(hash_equals($message->text, 'Профиль')) {
+                $option = 'profile.data';
+            }
+
             //Сохраненяем пользователя
             $user = app()->call('App\Http\Controllers\UserController@store', [
                 'user' => $user,
