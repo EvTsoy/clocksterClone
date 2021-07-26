@@ -16,8 +16,6 @@ class TelegramController extends Controller
             'update' => $update,
         ]);
 
-        dd('hi');
-
         if ($update->isType('callback_query')) {
 
             $option = $update->callbackQuery->data;
@@ -48,6 +46,7 @@ class TelegramController extends Controller
                 'message' => $message
             ]);
         }
+        dd('hi');
 
         //Начало диалога
         $conversation->start($user, $message, $option);
