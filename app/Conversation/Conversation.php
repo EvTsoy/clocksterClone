@@ -33,9 +33,7 @@ class Conversation
         }
 
         if(hash_equals($option, 'accepted')) {
-            Welcome::class->accepted();
+            app(Welcome::class)->call('accepted');
         }
-
-
     }
 }
