@@ -17,7 +17,6 @@ class TelegramController extends Controller
         ]);
 
         $message = $update->getMessage();
-
         $user = $message->from;
 
         //Сохраненяем пользователя
@@ -30,8 +29,13 @@ class TelegramController extends Controller
             'message' => $message
         ]);
 
+
+        if ($update->isType('callback_query')) {
+            $option = $update->callbackQuery->from->id;
+        }
+
         //Начало диалога
-        $conversation->start($user, $message);
+        $conversation->start($user, $message, $option);
 
     }
 }

@@ -15,7 +15,7 @@ class Conversation
         Fullname::class
     ];
 
-    public function start(User $user, Message $message)
+    public function start(User $user, Message $message, string $option)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
@@ -29,6 +29,7 @@ class Conversation
             $flow->setUser($user);
             $flow->setMessage($message);
             $flow->setContext($context);
+            $flow->setOption($option);
 
             $flow->run();
         }

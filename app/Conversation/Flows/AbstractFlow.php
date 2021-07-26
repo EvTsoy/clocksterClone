@@ -22,7 +22,7 @@ abstract class AbstractFlow
 
     protected $context = [];
 
-    protected $options = [];
+    protected $option;
 
     public function setUser(User $user)
     {
@@ -32,6 +32,11 @@ abstract class AbstractFlow
     public function setMessage(Message $message)
     {
         $this->message = $message;
+    }
+
+    public function setOption($option)
+    {
+        $this->option = $option;
     }
 
     public function setContext($context)
@@ -84,7 +89,7 @@ abstract class AbstractFlow
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -103,7 +108,6 @@ abstract class AbstractFlow
 
             $states = $flow->getStates();
             $currentState = collect($states)->search($this->context['state']);
-//            $currentState = $states[$currentState];
 
             $nextState = $currentState + 1;
             if(isset($states[$nextState])) {
