@@ -49,6 +49,10 @@ class Conversation
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
+
+            $flow = app(Contacts::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
         }
 
     }
