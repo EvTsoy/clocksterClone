@@ -30,8 +30,8 @@ class TelegramController extends Controller
         ]);
 
 
-        $option = $update->isType('callback_query') ? $update->callbackQuery->from->id : '';
-        
+        $option = $update->isType('callback_query') ? $update->callbackQuery->data : '';
+
         //Начало диалога
         $conversation->start($user, $message, $option);
 
