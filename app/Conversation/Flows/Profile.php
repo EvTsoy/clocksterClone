@@ -14,10 +14,8 @@ class Profile extends AbstractFlow
             'reply_markup' => Keyboard::make([
                 'keyboard' => [
                     [
-                        [
-                            'text' => 'Профиль',
-                            'callback_data' => 'profile.data'
-                        ],
+                        'text' => 'Профиль',
+                        'callback_data' => 'profile.data'
                     ]
                 ],
             ])
