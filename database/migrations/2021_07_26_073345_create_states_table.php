@@ -15,10 +15,9 @@ class CreateStatesTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_telegram_id')->default(0);
-            $table->unsignedBigInteger('message_id');
-            $table->longText('message_text');
-            $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->string('state');
+            $table->string('flow');
         });
     }
 
