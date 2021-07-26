@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_telegram_id')->default(0);
             $table->unsignedBigInteger('message_id');
-            $table->longText('message_text');
+            $table->longText('message_text')->nullable();
             $table->timestamps();
         });
     }
