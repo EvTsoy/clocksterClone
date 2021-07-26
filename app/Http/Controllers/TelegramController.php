@@ -17,6 +17,7 @@ class TelegramController extends Controller
         ]);
 
         if ($update->isType('callback_query')) {
+
             $option = $update->callbackQuery->data;
 
             $message = $update->getMessage();
@@ -25,10 +26,9 @@ class TelegramController extends Controller
                 'message' => $message
             ]);
 
-            $user = $message->chat;
 
             $user = app()->call('App\Http\Controllers\UserController@show', [
-                'id' => $user->id
+                'id' => $update->callbackQuery->from->id
             ]);
 
         } else {
