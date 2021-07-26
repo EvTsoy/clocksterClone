@@ -13,11 +13,13 @@ class Conversation
 {
     public function start(User $user, Message $message, $option)
     {
+
+
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
             'id' => $user->id
         ]);
 
-        if(is_null($state)) {
+        if(is_null($state->status)) {
             $state = app()->call('App\Http\Controllers\UserStateController@store', [
                 'values' => [
                     'user_id' => $user->id,
@@ -25,6 +27,10 @@ class Conversation
                 ]
             ]);
         }
+
+        Log::debug('Conversation.start', [
+            'state.status' => $state,
+        ]);
 
         if(hash_equals($state->status, 'first')) {
             $flow = app(Welcome::class);
