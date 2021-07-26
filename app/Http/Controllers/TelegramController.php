@@ -24,9 +24,9 @@ class TelegramController extends Controller
             $user = $message->chat;
 
             $user = app()->call('App\Http\Controllers\UserController@show', [
-                '$id' => $user->id
+                'id' => $user->id
             ]);
-            
+
         } else {
             $option = null;
 
