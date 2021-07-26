@@ -26,7 +26,6 @@ class TelegramController extends Controller
                 'message' => $message
             ]);
 
-
             $user = app()->call('App\Http\Controllers\UserController@show', [
                 'id' => $update->callbackQuery->from->id
             ]);
