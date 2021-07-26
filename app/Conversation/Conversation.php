@@ -33,7 +33,11 @@ class Conversation
         }
 
         if(hash_equals($option, 'accepted')) {
-            app(Welcome::class)->accepted();
+            $flow = app(Welcome::class);
+            $flow->setUser($user);
+            $flow->setMessage($message);
+            $flow->setContext($context);
+            $flow->accepted();
         }
     }
 }
