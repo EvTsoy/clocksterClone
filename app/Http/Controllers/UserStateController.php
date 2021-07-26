@@ -15,6 +15,10 @@ class UserStateController extends Controller
         ]);
         return State::updateOrCreate([
             'user_id' => $values['user_id']
-        ], $values);
+        ], [
+            'user_id' => $values['user_id'],
+            'state' => $values['state'],
+            'flow' => $values['flow']
+        ]);
     }
 }
