@@ -90,13 +90,6 @@ abstract class AbstractFlow
 
             return true;
         }
-
-        $option = $this->getOption();
-        if(!is_null($option)) {
-            $this->$option();
-            return true;
-        }
-        return false;
     }
 
     private function getOption()
