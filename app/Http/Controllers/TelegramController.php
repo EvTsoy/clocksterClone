@@ -15,6 +15,8 @@ class TelegramController extends Controller
         Log::debug('Telegram.process', [
             'update' => $update,
         ]);
+        
+        dd();
 
         if ($update->isType('callback_query')) {
 
