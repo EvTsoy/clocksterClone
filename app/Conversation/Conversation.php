@@ -24,7 +24,7 @@ class Conversation
             'message' => $message->toArray(),
         ]);
 
-        dd('histart');
+        dd('stop');
 
         $context = Context::get($user);
 

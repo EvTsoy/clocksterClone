@@ -46,7 +46,6 @@ class TelegramController extends Controller
                 'message' => $message
             ]);
         }
-        dd('hi');
 
         //Начало диалога
         $conversation->start($user, $message, $option);
