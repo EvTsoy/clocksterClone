@@ -22,6 +22,8 @@ abstract class AbstractFlow
 
     protected $context = [];
 
+    protected $option;
+
     public function setUser(User $user)
     {
         $this->user = $user;
