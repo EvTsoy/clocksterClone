@@ -24,6 +24,6 @@ class Fullname extends AbstractFlow
             'status' => 'contacts'
         ]);
 
-        $this->jump(Contacts::class);
+//        $this->jump(Contacts::class);
     }
 }
