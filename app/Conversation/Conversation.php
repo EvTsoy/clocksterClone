@@ -5,6 +5,7 @@ namespace App\Conversation;
 use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\Fullname;
+use App\Conversation\Flows\Profile;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
 use App\Models\User;
@@ -61,6 +62,18 @@ class Conversation
             $flow = app(City::class);
             $this->setData($flow, $user, $message);
             $flow->first();
+        }
+
+        if(hash_equals($state->status, 'profile')) {
+            $flow = app(Profile::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
+        }
+
+        if(hash_equals($option, 'profile.data')) {
+            $flow = app(Profile::class);
+            $this->setData($flow, $user, $message);
+            $flow->showData();
         }
     }
 
