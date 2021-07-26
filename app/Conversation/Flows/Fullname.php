@@ -14,9 +14,11 @@ class Fullname extends AbstractFlow
 
     public function storeUserName()
     {
-        $this->telegram()->sendMessage([
-            'chat_id' => $this->user->user_telegram_id,
-            'text' => 'Saved',
+        app()->call('App\Http\Controllers\UserController@update', [
+            'id' => $this->user->id,
+            'name' => $this->message->message_text
         ]);
+
+        $this->jump(Contacts::class);
     }
 }

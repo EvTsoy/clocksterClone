@@ -2,6 +2,7 @@
 
 namespace App\Conversation;
 
+use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\Fullname;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
@@ -12,7 +13,8 @@ class Conversation
 {
     protected $flows = [
         Welcome::class,
-        Fullname::class
+        Fullname::class,
+        Contacts::class
     ];
 
     public function start(User $user, Message $message, $option)
