@@ -40,12 +40,15 @@ class Welcome extends AbstractFlow
                 ],
             ])
         ]);
-
-//        $this->jump(Fullname::class);
     }
 
     public function accepted()
     {
+
+        app('App\Http\Controllers\UserStateController@store', [
+            'id' => $this->user->id,
+            'state' => 'intro'
+        ]);
         $this->jump(Fullname::class);
     }
 }

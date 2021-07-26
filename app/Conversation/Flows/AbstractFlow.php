@@ -18,11 +18,9 @@ abstract class AbstractFlow
 
     protected $triggers = [];
 
-    protected $states = ['first'];
+    protected $states = ['first', 'userName'];
 
     protected $context = [];
-
-    protected $option;
 
     public function setUser(User $user)
     {
@@ -32,11 +30,6 @@ abstract class AbstractFlow
     public function setMessage(Message $message)
     {
         $this->message = $message;
-    }
-
-    public function setOption($option)
-    {
-        $this->option = $option;
     }
 
     public function setContext($context)
@@ -93,13 +86,6 @@ abstract class AbstractFlow
         return false;
     }
 
-    private function getOption()
-    {
-        if(!is_null($this->option)) {
-            return $this->option;
-        }
-        return null;
-    }
 
     private function findByContext()
     {

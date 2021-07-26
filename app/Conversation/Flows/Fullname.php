@@ -11,4 +11,12 @@ class Fullname extends AbstractFlow
             'text' => 'Напишите свое имя и фамилию (например: Айгерим Оспанова)',
         ]);
     }
+
+    public function storeUserName()
+    {
+        $this->telegram()->sendMessage([
+            'chat_id' => $this->user->user_telegram_id,
+            'text' => 'Saved',
+        ]);
+    }
 }

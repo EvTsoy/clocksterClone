@@ -24,6 +24,10 @@ class Conversation
 
         $context = Context::get($user);
 
+        $state = app('App\Http\Controllers\UserStateController@show', [
+            'id' => $user->id
+        ]);
+
         foreach ($this->flows as $flow) {
             $flow = app($flow);
             $this->setData($flow, $user, $message, $context);
@@ -35,6 +39,13 @@ class Conversation
             $this->setData($flow, $user, $message, $context);
             $flow->accepted();
         }
+
+        if(hash_equals($state->state, 'intro')) {
+            $flow = app(Fullname::class);
+            $this->setData($flow, $user, $message, $context);
+            $flow->storeUserName();
+        }
+
     }
 
     private function setData($flow, User $user, Message $message, $context)
