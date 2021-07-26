@@ -27,8 +27,12 @@ class TelegramController extends Controller
                 'id' => $user_id
             ]);
 
+            $message = app()->call('App\Http\Controllers\MessageController@store', [
+                'message' => $update->callbackQuery->message
+            ]);
+
             if(hash_equals($update->callbackQuery->data, 'accepted')) {
-                $conversation->intro($user);
+                $conversation->intro($user, $message);
             }
         } else {
             $message = $update->getMessage();

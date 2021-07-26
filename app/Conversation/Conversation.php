@@ -29,10 +29,11 @@ class Conversation
         }
     }
 
-    public function intro(User $user)
+    public function intro(User $user, Message $message)
     {
         $flow = app(Fullname::class);
         $flow->setUser($user);
+        $flow->setMessage($message);
         $flow->intro();
     }
 }
