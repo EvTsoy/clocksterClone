@@ -16,7 +16,6 @@ class TelegramController extends Controller
             'update' => $update,
         ]);
 
-        dd();
 
         if ($update->isType('callback_query')) {
 
