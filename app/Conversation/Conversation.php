@@ -13,13 +13,11 @@ class Conversation
 {
     public function start(User $user, Message $message, $option)
     {
-
-
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
             'id' => $user->id
         ]);
 
-        if(is_null($state->status)) {
+        if(is_null($state)) {
             $state = app()->call('App\Http\Controllers\UserStateController@store', [
                 'values' => [
                     'user_id' => $user->id,
