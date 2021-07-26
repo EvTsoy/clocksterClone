@@ -17,9 +17,11 @@ class Context
         ]);
 
         app()->call('App\Http\Controllers\UserStateController@store', [
-            'user_id' => $user->id,
-            'flow' => get_class($flow),
-            'state' => $state,
+            'values' => [
+                'user_id' => $user->id,
+                'flow' => get_class($flow),
+                'state' => $state,
+            ]
         ]);
     }
 }
