@@ -29,7 +29,7 @@ class Conversation
         }
 
         Log::debug('Conversation.start', [
-            'state.state' => $state,
+            'Conversation.option' => $option,
         ]);
 
         if(
