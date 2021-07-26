@@ -14,10 +14,10 @@ class Fullname extends AbstractFlow
 
     public function storeUserName()
     {
-        app()->call('App\Http\Controllers\UserController@update', [
-            'id' => $this->user->id,
-            'name' => $this->message->message_text
-        ]);
+//        app()->call('App\Http\Controllers\UserController@update', [
+//            'id' => $this->user->id,
+//            'name' => $this->message->message_text
+//        ]);
 
         app()->call('App\Http\Controllers\UserStateController@updateState', [
             'id' => $this->user->id,
