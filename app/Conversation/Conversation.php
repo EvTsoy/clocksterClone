@@ -30,7 +30,10 @@ class Conversation
             'state.state' => $state,
         ]);
 
-        if(hash_equals($state->status, 'first')) {
+        if(
+            hash_equals($state->status, 'first') ||
+            hash_equals($message->message_text, '/start')
+        ) {
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->first();
