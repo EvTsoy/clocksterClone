@@ -2,6 +2,7 @@
 
 namespace App\Conversation;
 
+use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\Fullname;
 use App\Conversation\Flows\Welcome;
