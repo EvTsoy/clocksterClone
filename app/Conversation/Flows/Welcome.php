@@ -14,6 +14,8 @@ class Welcome extends AbstractFlow
         'first'
     ];
 
+    protected $options;
+
     protected function first()
     {
         $this->telegram()->sendMessage([

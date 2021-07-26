@@ -18,9 +18,11 @@ abstract class AbstractFlow
 
     protected $triggers = [];
 
-    protected $states = [];
+    protected $states = ['first'];
 
-    protected $context = ['first'];
+    protected $context = [];
+
+    protected $options = [];
 
     public function setUser(User $user)
     {
@@ -57,8 +59,8 @@ abstract class AbstractFlow
 
         // Передано значение state
         if(!is_null($state)) {
-            $this->$state();
             event(new FlowRunned($this->user, $this, $state));
+            $this->$state();
 
             return true;
         }
@@ -67,8 +69,8 @@ abstract class AbstractFlow
         $state = $this->findByContext();
 
         if(!is_null($state)) {
-            $this->$state();
             event(new FlowRunned($this->user, $this, $state));
+            $this->$state();
 
             return true;
         }
@@ -77,8 +79,8 @@ abstract class AbstractFlow
         $state = $this->findByTrigger();
 
         if(!is_null($state)) {
-            $this->$state();
             event(new FlowRunned($this->user, $this, $state));
+            $this->$state();
 
             return true;
         }
