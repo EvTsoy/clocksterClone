@@ -45,7 +45,7 @@ class Welcome extends AbstractFlow
     public function accepted()
     {
 
-        app('App\Http\Controllers\UserStateController@store', [
+        app()->call('App\Http\Controllers\UserStateController@store', [
             'id' => $this->user->id,
             'state' => 'intro'
         ]);

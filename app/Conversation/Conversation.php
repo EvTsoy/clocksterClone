@@ -24,7 +24,7 @@ class Conversation
 
         $context = Context::get($user);
 
-        $state = app('App\Http\Controllers\UserStateController@show', [
+        $state = app()->call('App\Http\Controllers\UserStateController@show', [
             'id' => $user->id
         ]);
 
