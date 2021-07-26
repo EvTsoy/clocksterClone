@@ -84,9 +84,7 @@ abstract class AbstractFlow
 
             return true;
         }
-
-        $this->$state();
-
+        
         return false;
     }
 
