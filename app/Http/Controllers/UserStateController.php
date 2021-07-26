@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use Log;
 
 class UserStateController extends Controller
 {
-    public function store($state)
+    public function store($values)
     {
+
+        Log::debug('UserStateController.values', [
+            'user' => $values,
+        ]);
         return State::updateOrCreate([
-            'user_id' => $state->user_id
-        ], $state);
+            'user_id' => $values->user_id
+        ], $values);
     }
 }

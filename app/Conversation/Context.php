@@ -5,7 +5,6 @@ namespace App\Conversation;
 use App\Conversation\Flows\AbstractFlow;
 use App\Models\User;
 use Log;
-use Cache;
 
 class Context
 {
