@@ -122,7 +122,7 @@ abstract class AbstractFlow
 
         foreach ($this->triggers as $trigger)
         {
-            if(!is_null($trigger) && hash_equals($trigger, $this->message->message_text))
+            if(!is_null($this->message->message_text) && hash_equals($trigger, $this->message->message_text))
             {
                 $state = 'first';
             }
