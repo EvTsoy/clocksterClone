@@ -30,19 +30,19 @@ class Conversation
             'state.state' => $state,
         ]);
 
-        if(hash_equals($state->state, 'first')) {
+        if(hash_equals($state->status, 'first')) {
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->first();
         }
 
-        if(!is_null($state->state) && hash_equals($option, 'accepted')) {
+        if(hash_equals($option, 'accepted')) {
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->accepted();
         }
 
-        if(!is_null($state->state) && hash_equals($state->state, 'intro')) {
+        if(hash_equals($state->status, 'intro')) {
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
