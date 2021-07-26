@@ -27,22 +27,22 @@ class Conversation
         }
 
         Log::debug('Conversation.start', [
-            'state.status' => $state,
+            'state.state' => $state,
         ]);
 
-        if(hash_equals($state->status, 'first')) {
+        if(hash_equals($state->state, 'first')) {
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->first();
         }
 
-        if(!is_null($state->status) && hash_equals($option, 'accepted')) {
+        if(!is_null($state->state) && hash_equals($option, 'accepted')) {
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->accepted();
         }
 
-        if(!is_null($state->status) && hash_equals($state->status, 'intro')) {
+        if(!is_null($state->state) && hash_equals($state->state, 'intro')) {
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
