@@ -15,7 +15,7 @@ class Conversation
         Fullname::class
     ];
 
-    public function start(User $user, Message $message, string $option)
+    public function start(User $user, Message $message, $option)
     {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),

@@ -83,6 +83,7 @@ abstract class AbstractFlow
         // Поиск по триггерам
         $state = $this->findByTrigger();
 
+
         if(!is_null($state)) {
             event(new FlowRunned($this->user, $this, $state));
             $this->$state();
@@ -90,7 +91,20 @@ abstract class AbstractFlow
             return true;
         }
 
+        $option = $this->getOption();
+        if(!is_null($option)) {
+            $this->$option();
+            return true;
+        }
         return false;
+    }
+
+    private function getOption()
+    {
+        if(!is_null($this->option)) {
+            return $this->option;
+        }
+        return null;
     }
 
     private function findByContext()
