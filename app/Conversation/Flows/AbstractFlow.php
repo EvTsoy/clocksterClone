@@ -18,7 +18,7 @@ abstract class AbstractFlow
 
     protected $triggers = [];
 
-    protected $states = ['first', 'userName'];
+    protected $states = ['first'];
 
     protected $context = [];
 

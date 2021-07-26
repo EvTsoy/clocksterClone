@@ -45,6 +45,6 @@ class Welcome extends AbstractFlow
             'id' => $this->user->id,
             'status' => 'intro'
         ]);
-//        $this->jump(Fullname::class);
+        $this->jump(Fullname::class);
     }
 }
