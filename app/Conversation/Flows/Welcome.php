@@ -8,15 +8,7 @@ use Log;
 
 class Welcome extends AbstractFlow
 {
-    protected $triggers = [
-        '/start'
-    ];
-
-    protected $states = [
-        'first'
-    ];
-
-    protected function first()
+    public function first()
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
@@ -36,15 +28,20 @@ class Welcome extends AbstractFlow
                 ],
             ])
         ]);
+
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'accepted'
+        ]);
     }
 
     public function accepted()
     {
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'intro'
+        ]);
 
-//        app()->call('App\Http\Controllers\UserStateController@updateState', [
-//            'id' => $this->user->id,
-//            'status' => 'intro'
-//        ]);
-//        $this->jump(Fullname::class);
+        app(Fullname::class)->first();
     }
 }

@@ -19,43 +19,34 @@ class Conversation
 
     public function start(User $user, Message $message, $option)
     {
-        Log::debug('Conversation.start', [
-            'user' => $user->toArray(),
-            'message' => $message->toArray(),
-        ]);
-        
-        $context = Context::get($user);
-
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
             'id' => $user->id
         ]);
 
-        foreach ($this->flows as $flow) {
-            $flow = app($flow);
-            $this->setData($flow, $user, $message, $context);
-            $flow->run();
+        if(hash_equals($state->status, 'first')) {
+            $flow = app(Welcome::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
         }
 
-        if(hash_equals($option, 'accepted')) {
+        if(!is_null($state->status) && hash_equals($option, 'accepted')) {
             $flow = app(Welcome::class);
-            $this->setData($flow, $user, $message, $context);
+            $this->setData($flow, $user, $message);
             $flow->accepted();
         }
 
-
         if(!is_null($state->status) && hash_equals($state->status, 'intro')) {
             $flow = app(Fullname::class);
-            $this->setData($flow, $user, $message, $context);
+            $this->setData($flow, $user, $message);
             $flow->storeUserName();
         }
 
     }
 
-    private function setData($flow, User $user, Message $message, $context)
+    private function setData($flow, User $user, Message $message)
     {
         $flow->setUser($user);
         $flow->setMessage($message);
-        $flow->setContext($context);
         return $flow;
     }
 }
