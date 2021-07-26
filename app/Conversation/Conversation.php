@@ -29,15 +29,11 @@ class Conversation
             $flow->setUser($user);
             $flow->setMessage($message);
             $flow->setContext($context);
-            $flow->run();
-        }
-
-        if(hash_equals($option, 'accepted')) {
-            $flow = app(Welcome::class);
-            $flow->setUser($user);
-            $flow->setMessage($message);
-            $flow->setContext($context);
-            $flow->accepted();
+            if (hash_equals($option, '')) {
+                $flow->run();
+            } else if (hash_equals($option, 'accepted')) {
+                $flow->accepted();
+            }
         }
     }
 }
