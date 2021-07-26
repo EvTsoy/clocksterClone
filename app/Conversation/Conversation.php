@@ -26,14 +26,22 @@ class Conversation
 
         foreach ($this->flows as $flow) {
             $flow = app($flow);
-            $flow->setUser($user);
-            $flow->setMessage($message);
-            $flow->setContext($context);
-            if (hash_equals($option, '')) {
-                $flow->run();
-            } else if (hash_equals($option, 'accepted')) {
-                $flow->accepted();
-            }
+            $this->setData($flow, $user, $message, $context);
+            $flow->run();
         }
+
+        if(hash_equals($option, 'accepted')) {
+            $flow = app(Welcome::class);
+            $this->setData($flow, $user, $message, $context);
+            $flow->accepted();
+        }
+    }
+
+    private function setData($flow, User $user, Message $message, $context)
+    {
+        $flow->setUser($user);
+        $flow->setMessage($message);
+        $flow->setContext($context);
+        return $flow;
     }
 }
