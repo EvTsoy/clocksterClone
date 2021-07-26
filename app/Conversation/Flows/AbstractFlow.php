@@ -90,6 +90,7 @@ abstract class AbstractFlow
 
             return true;
         }
+        return false;
     }
 
     private function getOption()
