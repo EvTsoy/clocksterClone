@@ -15,19 +15,41 @@ class Conversation
         Fullname::class,
     ];
 
-    public function start(User $user, Message $message, string $state)
+    public function start($update)
     {
+        $message = $update->getMessage();
+        $user = $message->from;
+
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
             'message' => $message->toArray(),
         ]);
 
-        foreach ($this->flows as $flow)
-        {
+        //Сохраненяем пользователя
+        $user = app()->call('App\Http\Controllers\UserController@store', [
+            'user' => $user
+        ]);
+
+        //Сохранение сообщений
+        $message = app()->call('App\Http\Controllers\MessageController@store', [
+            'message' => $message
+        ]);
+
+        foreach ($this->flows as $flow) {
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
-            $flow->run($state);
+        }
+
+        if (hash_equals($message->message_text, '/start')) {
+            $flow = app(Welcome::class);
+            $flow->first();
+        }
+
+        if ($update->isType('callback_query')) {
+            if (hash_equals($update->callbackQuery->data, 'accepted')) {
+                $flow = app(Fullname::class);
+                $flow->intro();
+            }
         }
     }
-}

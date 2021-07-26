@@ -6,10 +6,6 @@ use Telegram\Bot\Keyboard\Keyboard;
 
 class Welcome extends AbstractFlow
 {
-    protected $triggers = [
-        '/start'
-    ];
-
     public function first()
     {
         $this->telegram()->sendMessage([

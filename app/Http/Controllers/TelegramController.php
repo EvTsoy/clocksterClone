@@ -16,23 +16,9 @@ class TelegramController extends Controller
             'update' => $update,
         ]);
 
-        $message = $update->getMessage();
-        $user = $message->from;
-
-        //Сохраненяем пользователя
-        $user = app()->call('App\Http\Controllers\UserController@store', [
-            'user' => $user
-        ]);
-
-        //Сохранение сообщений
-        $message = app()->call('App\Http\Controllers\MessageController@store', [
-            'message' => $message
-        ]);
-
-        $state =  $update->isType('callback_query') ? $update->callbackQuery->data : 'welcome';
 
         //Начало диалога
         $conversation = new Conversation();
-        $conversation->start($user, $message, $state);
+        $conversation->start($update);
     }
 }

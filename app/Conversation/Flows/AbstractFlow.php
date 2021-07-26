@@ -2,7 +2,6 @@
 
 namespace App\Conversation\Flows;
 
-use Log;
 use Telegram;
 use App\Models\User;
 use Telegram\Bot\Api;
@@ -14,10 +13,6 @@ abstract class AbstractFlow
 
     protected $message;
 
-    protected $triggers = [];
-
-    protected $state;
-
     public function setUser(User $user)
     {
         $this->user = $user;
@@ -28,34 +23,8 @@ abstract class AbstractFlow
         $this->message = $message;
     }
 
-    public function setState($state)
-    {
-        $this->state = $state;
-    }
-
     protected function telegram(): Api
     {
         return Telegram::bot();
-    }
-
-    public function run($state)
-    {
-        Log::debug(static::class . '.run', [
-            'user' => $this->user->toArray(),
-            'message' => $this->message->toArray(),
-        ]);
-
-        foreach ($this->triggers as $trigger)
-        {
-            if(hash_equals($trigger, $this->message->message_text))
-            {
-                $this->first();
-            }
-        }
-
-        if (hash_equals($state, 'accepted'))
-        {
-            $this->intro();
-        }
     }
 }
