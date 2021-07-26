@@ -10,11 +10,6 @@ use Log;
 
 class Conversation
 {
-    protected $flows = [
-        Welcome::class,
-        Fullname::class,
-    ];
-
     public function start($update)
     {
         $message = $update->getMessage();
@@ -35,22 +30,24 @@ class Conversation
             'message' => $message
         ]);
 
-        foreach ($this->flows as $flow) {
-            $flow = app($flow);
-            $flow->setUser($user);
-            $flow->setMessage($message);
-        }
-
         if (hash_equals($message->message_text, '/start')) {
-            $flow = app(Welcome::class);
+            $flow = $this->setData($user, $message, Welcome::class);
             $flow->first();
         }
 
         if ($update->isType('callback_query')) {
             if (hash_equals($update->callbackQuery->data, 'accepted')) {
-                $flow = app(Fullname::class);
+                $flow = $this->setData($user, $message, Fullname::class);
                 $flow->intro();
             }
         }
+    }
+    
+    protected function setData(User $user, Message $message, $class)
+    {
+        $flow = app($class);
+        $flow->setUser($user);
+        $flow->setMessage($message);
+        return $flow;
     }
 }
