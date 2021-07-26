@@ -33,7 +33,7 @@ class Conversation
         }
 
         if(hash_equals($option, 'accepted')) {
-            app(Fullname::class)->accepted();
+            app(Welcome::class)->accepted();
         }
     }
 }
