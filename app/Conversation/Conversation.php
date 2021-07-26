@@ -23,9 +23,7 @@ class Conversation
             'user' => $user->toArray(),
             'message' => $message->toArray(),
         ]);
-
-        dd('stop');
-
+        
         $context = Context::get($user);
 
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
