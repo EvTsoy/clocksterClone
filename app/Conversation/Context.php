@@ -17,14 +17,10 @@ class Context
             'state' => $state
         ]);
 
-        Cache::forever($this->key($user), [
+        app()->call('App\Http\Controllers\UserStateController@store', [
+            'user_id' => $user->id,
             'flow' => get_class($flow),
             'state' => $state,
         ]);
-    }
-
-    private function key(User $user)
-    {
-        return 'context_' . $user->id;
     }
 }
