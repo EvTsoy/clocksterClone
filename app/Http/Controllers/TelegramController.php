@@ -32,7 +32,7 @@ class TelegramController extends Controller
             ]);
 
         } else {
-            $option = null;
+            $option = '';
 
             $message = $update->getMessage();
             $user = $message->from;
