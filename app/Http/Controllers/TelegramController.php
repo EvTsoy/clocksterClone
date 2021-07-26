@@ -21,6 +21,10 @@ class TelegramController extends Controller
 
             $message = $update->getMessage();
 
+            $message = app()->call('App\Http\Controllers\MessageController@store', [
+                'message' => $message
+            ]);
+
             $user = $message->chat;
 
             $user = app()->call('App\Http\Controllers\UserController@show', [
