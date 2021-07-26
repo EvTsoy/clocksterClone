@@ -27,12 +27,12 @@ class UserStateController extends Controller
         return State::where('id', $id)->first();
     }
 
-    public function updateState($id, $intro)
+    public function updateState($id, $status)
     {
         $state = State::where('user_id', $id);
 
         return $state->update([
-            'state' => $intro
+            'status' => $status
         ]);
     }
 }

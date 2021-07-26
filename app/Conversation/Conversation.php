@@ -40,7 +40,7 @@ class Conversation
             $flow->accepted();
         }
 
-        if(hash_equals($state->state, 'intro')) {
+        if(hash_equals($state->status, 'intro')) {
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message, $context);
             $flow->storeUserName();
