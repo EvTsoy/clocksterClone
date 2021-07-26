@@ -24,6 +24,8 @@ class Conversation
             'message' => $message->toArray(),
         ]);
 
+        dd('hi');
+
         $context = Context::get($user);
 
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
