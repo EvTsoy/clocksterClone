@@ -21,7 +21,7 @@ class Conversation
             $state = app()->call('App\Http\Controllers\UserStateController@store', [
                 'values' => [
                     'user_id' => $user->id,
-                    'state' => 'first'
+                    'status' => 'first'
                 ]
             ]);
         }
