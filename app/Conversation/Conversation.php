@@ -40,9 +40,9 @@ class Conversation
         }
 
         if(hash_equals($option, 'accepted')) {
-            $flow = app(Welcome::class);
+            $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
-            $flow->accepted();
+            $flow->first();
         }
 
         if(hash_equals($state->status, 'intro')) {

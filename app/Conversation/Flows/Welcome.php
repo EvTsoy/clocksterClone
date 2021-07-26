@@ -34,14 +34,4 @@ class Welcome extends AbstractFlow
             'status' => 'accepted'
         ]);
     }
-
-    public function accepted()
-    {
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'intro'
-        ]);
-
-        app(Fullname::class)->first();
-    }
 }
