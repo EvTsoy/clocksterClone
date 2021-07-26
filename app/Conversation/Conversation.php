@@ -10,44 +10,29 @@ use Log;
 
 class Conversation
 {
-    public function start($update)
-    {
-        $message = $update->getMessage();
-        $user = $message->from;
+    protected $flows = [
+        Welcome::class,
+    ];
 
+    public function start(User $user, Message $message)
+    {
         Log::debug('Conversation.start', [
             'user' => $user->toArray(),
             'message' => $message->toArray(),
         ]);
 
-        //Сохраненяем пользователя
-        $user = app()->call('App\Http\Controllers\UserController@store', [
-            'user' => $user
-        ]);
-
-        //Сохранение сообщений
-        $message = app()->call('App\Http\Controllers\MessageController@store', [
-            'message' => $message
-        ]);
-
-        if (hash_equals($message->message_text, '/start')) {
-            $flow = $this->setData($user, $message, Welcome::class);
-            $flow->first();
-        }
-
-        if ($update->isType('callback_query')) {
-            if (hash_equals($update->callbackQuery->data, 'accepted')) {
-                $flow = $this->setData($user, $message, Fullname::class);
-                $flow->intro();
-            }
+        foreach ($this->flows as $flow) {
+            $flow = app($flow);
+            $flow->setUser($user);
+            $flow->setMessage($message);
+            $flow->run();
         }
     }
-    
-    protected function setData(User $user, Message $message, $class)
+
+    public function intro(User $user)
     {
-        $flow = app($class);
+        $flow = app(Fullname::class);
         $flow->setUser($user);
-        $flow->setMessage($message);
-        return $flow;
+        $flow->intro();
     }
 }
