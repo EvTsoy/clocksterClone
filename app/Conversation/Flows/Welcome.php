@@ -41,6 +41,6 @@ class Welcome extends AbstractFlow
             ])
         ]);
 
-        $this->jump(Fullname::class);
+//        $this->jump(Fullname::class);
     }
 }
