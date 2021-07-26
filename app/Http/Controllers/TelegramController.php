@@ -34,8 +34,9 @@ class TelegramController extends Controller
             $option = $update->callbackQuery->from->id;
         }
 
+
         //Начало диалога
-        $conversation->start($user, $message, $option);
+        $conversation->start($user, $message, $option=null);
 
     }
 }
