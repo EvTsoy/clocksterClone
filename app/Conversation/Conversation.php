@@ -55,6 +55,12 @@ class Conversation
             $flow->first();
         }
 
+        if(hash_equals($state->status, 'city'))
+        {
+            $flow = app(City::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
+        }
     }
 
     private function setData($flow, User $user, Message $message)

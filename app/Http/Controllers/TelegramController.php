@@ -36,11 +36,18 @@ class TelegramController extends Controller
 
             $message = $update->getMessage();
             $user = $message->from;
+            $phoneNumber = $message->contact->phoneNumber ?? 'Unavailable';
 
             //Сохраненяем пользователя
             $user = app()->call('App\Http\Controllers\UserController@store', [
-                'user' => $user
+                'user' => $user,
             ]);
+
+            app()->call('App\Http\Controllers\UserController@updatePhone', [
+                'id' => $user->id,
+                'phoneNumber' => $phoneNumber,
+            ]);
+
 
             //Сохранение сообщений
             $message = app()->call('App\Http\Controllers\MessageController@store', [

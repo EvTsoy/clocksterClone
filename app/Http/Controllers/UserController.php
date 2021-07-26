@@ -73,4 +73,12 @@ class UserController extends Controller
     {
         //
     }
+
+    public function updatePhone($id, $phoneNumber)
+    {
+        $user = User::findOrFail($id);
+        return $user->update([
+            'phoneNumber' => $phoneNumber
+        ]);
+    }
 }
