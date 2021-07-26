@@ -78,7 +78,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         return $user->update([
-            'phoneNumber' => $phoneNumber
+            'phone_number' => $phoneNumber
         ]);
     }
 }
