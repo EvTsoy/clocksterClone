@@ -8,7 +8,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TelegramController extends Controller
 {
-    public function process()
+    public function process(Conversation $conversation)
     {
         $update = Telegram::bot()->getWebhookUpdate();
 
@@ -31,7 +31,6 @@ class TelegramController extends Controller
         ]);
 
         //Начало диалога
-        $conversation = new Conversation();
         $conversation->start($user, $message);
 
     }

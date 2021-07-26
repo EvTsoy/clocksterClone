@@ -4,6 +4,8 @@ namespace App\Conversation;
 
 use App\Conversation\Flows\AbstractFlow;
 use App\Models\User;
+use Log;
+use Cache;
 
 class Context
 {
@@ -15,7 +17,7 @@ class Context
             'state' => $state
         ]);
 
-        \Cache::forever($this->key($user), [
+        Cache::forever($this->key($user), [
             'flow' => get_class($flow),
             'state' => $state,
         ]);
