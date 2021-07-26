@@ -10,7 +10,11 @@ class Welcome extends AbstractFlow
         '/start'
     ];
 
-    public function first()
+    protected $states = [
+        'first'
+    ];
+
+    protected function first()
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,

@@ -16,7 +16,7 @@ abstract class AbstractFlow
 
     protected $triggers = [];
 
-    protected $state;
+    protected $states = [];
 
     public function setUser(User $user)
     {
@@ -28,21 +28,17 @@ abstract class AbstractFlow
         $this->message = $message;
     }
 
-    public function setState($state)
-    {
-        $this->state = $state;
-    }
-
     protected function telegram(): Api
     {
         return Telegram::bot();
     }
 
-    public function run()
+    public function run($state = null)
     {
         Log::debug(static::class . '.run', [
             'user' => $this->user->toArray(),
             'message' => $this->message->toArray(),
+            'state' => $state
         ]);
 
         foreach ($this->triggers as $trigger)
@@ -53,4 +49,6 @@ abstract class AbstractFlow
             }
         }
     }
+
+    abstract protected function first();
 }
