@@ -19,6 +19,11 @@ class Fullname extends AbstractFlow
             'name' => $this->message->message_text
         ]);
 
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'contacts'
+        ]);
+
         $this->jump(Contacts::class);
     }
 }
