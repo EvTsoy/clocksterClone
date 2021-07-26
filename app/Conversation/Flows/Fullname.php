@@ -4,7 +4,7 @@ namespace App\Conversation\Flows;
 
 class Fullname extends AbstractFlow
 {
-    public function intro()
+    public function first()
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,

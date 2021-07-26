@@ -14,14 +14,6 @@ class Conversation
         Welcome::class,
     ];
 
-    private $context;
-
-    public function __construct(Context $context)
-    {
-        $this->context = $context;
-    }
-
-
     public function start(User $user, Message $message)
     {
         Log::debug('Conversation.start', [
@@ -29,12 +21,15 @@ class Conversation
             'message' => $message->toArray(),
         ]);
 
+        $context = Context::get($user);
+
         foreach ($this->flows as $flow) {
             $flow = app($flow);
             $flow->setUser($user);
             $flow->setMessage($message);
+            $flow->setContext($context);
 
-            $state = $flow->run();
+            $flow->run();
 
             if(is_string($state)) {
                 $this->context->save($user, $flow, $state);

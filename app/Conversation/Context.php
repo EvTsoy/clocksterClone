@@ -8,7 +8,7 @@ use Log;
 
 class Context
 {
-    public function save(User $user, AbstractFlow $flow, string $state)
+    public static function save(User $user, AbstractFlow $flow, string $state)
     {
         Log::debug('Context.save', [
             'user' => $user->toArray(),
@@ -23,5 +23,12 @@ class Context
                 'state' => $state,
             ]
         ]);
+    }
+
+    public static function get(User $user)
+    {
+        return app()->call('App\Http\Controllers\UserStateController@show', [
+                'id' => $user->id,
+            ]);
     }
 }

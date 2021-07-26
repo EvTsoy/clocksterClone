@@ -21,4 +21,9 @@ class UserStateController extends Controller
             'flow' => $values['flow']
         ]);
     }
+
+    public function show($id)
+    {
+        return State::where('id', $id)->first();
+    }
 }
