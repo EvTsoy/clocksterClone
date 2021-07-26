@@ -3,8 +3,14 @@
 
 namespace App\Conversation\Flows;
 
+
+
 class Contacts extends AbstractFlow
 {
+    protected $states = [
+        'contacts'
+    ];
+
     public function first()
     {
         $this->telegram()->sendMessage([
