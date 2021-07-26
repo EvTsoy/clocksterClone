@@ -18,7 +18,6 @@ class UserStateController extends Controller
         ], [
             'user_id' => $values['user_id'],
             'state' => $values['state'],
-            'flow' => $values['flow']
         ]);
     }
 

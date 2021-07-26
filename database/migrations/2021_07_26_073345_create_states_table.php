@@ -16,9 +16,7 @@ class CreateStatesTable extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('state');
-            $table->string('flow');
-            $table->string('status')->default('first');
+            $table->string('state')->default('first');;
         });
     }
 
