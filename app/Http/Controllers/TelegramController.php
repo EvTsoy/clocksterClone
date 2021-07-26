@@ -29,14 +29,15 @@ class TelegramController extends Controller
             'message' => $message
         ]);
 
-        //Начало диалога
         $conversation = new Conversation();
-        $conversation->start($user, $message);
 
         if ($update->isType('callback_query')) {
             if(hash_equals($update->callbackQuery->data, 'accepted')) {
                 $conversation->intro($user);
             }
+        } else {
+            //Начало диалога
+            $conversation->start($user, $message);
         }
     }
 }
