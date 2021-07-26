@@ -18,7 +18,7 @@ class CreateStatesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('state');
             $table->string('flow');
-            $table->string('status');
+            $table->string('status')->nullable();
         });
     }
 
