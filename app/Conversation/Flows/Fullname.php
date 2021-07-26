@@ -12,8 +12,8 @@ class Fullname extends AbstractFlow
         ]);
     }
 
-    public function storeUserName()
-    {
+//    public function storeUserName()
+//    {
 //        app()->call('App\Http\Controllers\UserController@update', [
 //            'id' => $this->user->id,
 //            'name' => $this->message->message_text
@@ -24,6 +24,6 @@ class Fullname extends AbstractFlow
 //            'status' => 'contacts'
 //        ]);
 
-        $this->jump(Contacts::class);
-    }
+//        $this->jump(Contacts::class);
+//    }
 }
