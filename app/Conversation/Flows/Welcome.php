@@ -41,10 +41,10 @@ class Welcome extends AbstractFlow
     public function accepted()
     {
 
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'intro'
-        ]);
-//        $this->jump(Fullname::class);
+//        app()->call('App\Http\Controllers\UserStateController@updateState', [
+//            'id' => $this->user->id,
+//            'status' => 'intro'
+//        ]);
+        $this->jump(Fullname::class);
     }
 }

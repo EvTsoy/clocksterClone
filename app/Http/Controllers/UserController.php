@@ -58,9 +58,9 @@ class UserController extends Controller
     public function update($name, $id)
     {
         $user = User::findOrFail($id);
-        return $user->update([
-            'first_name' => $name
-        ]);
+//        return $user->update([
+//            'first_name' => $name
+//        ]);
     }
 
     /**
