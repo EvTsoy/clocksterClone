@@ -34,8 +34,8 @@ class Profile extends AbstractFlow
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' =>
-                'Ваше имя: ' . $this->user->first_name
-                . '%0AВаш телефон: ' . $this->user->phone_number
+                "Ваше имя: " . $this->user->first_name
+                . "\nВаш телефон: " . $this->user->phone_number
         ]);
     }
 }
