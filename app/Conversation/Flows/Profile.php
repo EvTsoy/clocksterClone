@@ -36,6 +36,7 @@ class Profile extends AbstractFlow
             'text' =>
                 "Ваше имя: " . $this->user->first_name
                 . "\nВаш телефон: " . $this->user->phone_number
+                . "\nГород поиска: " . $this->user->city
         ]);
     }
 }

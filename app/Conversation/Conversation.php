@@ -4,6 +4,7 @@ namespace App\Conversation;
 
 use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
+use App\Conversation\Flows\DateOfBirth;
 use App\Conversation\Flows\Fullname;
 use App\Conversation\Flows\Profile;
 use App\Conversation\Flows\Welcome;
@@ -57,8 +58,7 @@ class Conversation
             $flow->first();
         }
 
-        if(hash_equals($state->status, 'city'))
-        {
+        if(hash_equals($state->status, 'city')) {
             $flow = app(City::class);
             $this->setData($flow, $user, $message);
             $flow->first();
@@ -70,9 +70,27 @@ class Conversation
             $city = str_replace('city.', '', $option);
             $flow->saveCity($city);
 
-            $flow = app(Profile::class);
+            $flow = app(DateOfBirth::class);
             $this->setData($flow, $user, $message);
             $flow->first();
+        }
+
+        if(hash_equals($state->status, 'dateOfBirth'))
+        {
+            $flow = app(DateOfBirth::class);
+            $this->setData($flow, $user, $message);
+
+            if(preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{4})\)/", $message->message_text))
+            {
+                $flow->storeDateOfBirth();
+
+                $flow = app(Profile::class);
+                $this->setData($flow, $user, $message);
+                $flow->first();
+            } else {
+                $flow->first();
+            }
+
         }
 
         if(hash_equals($option, 'profile.data')) {

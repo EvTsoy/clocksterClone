@@ -89,4 +89,12 @@ class UserController extends Controller
             'city' => $city
         ]);
     }
+
+    public function updateDateOfBirth($id, $dateOfBirth)
+    {
+        $user = User::findOrFail($id);
+        return $user->update([
+            'date_of_birth' => $dateOfBirth
+        ]);
+    }
 }
