@@ -64,7 +64,12 @@ class Conversation
             $flow->first();
         }
 
-        if(hash_equals($state->status, 'profile')) {
+        if(str_contains($option, 'city.')) {
+            $flow = app(City::class);
+            $this->setData($flow, $user, $message);
+            $city = str_replace('city.', '', $option);
+            $flow->saveCity($city);
+
             $flow = app(Profile::class);
             $this->setData($flow, $user, $message);
             $flow->first();

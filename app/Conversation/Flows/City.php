@@ -34,6 +34,14 @@ class City extends AbstractFlow
                 ],
             ])
         ]);
+    }
+
+    public function saveCity($city)
+    {
+        app()->call('App\Http\Controllers\UserController@update', [
+            'id' => $this->user->id,
+            'city' => $city
+        ]);
 
         app()->call('App\Http\Controllers\UserStateController@updateState', [
             'id' => $this->user->id,

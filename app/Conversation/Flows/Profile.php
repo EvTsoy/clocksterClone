@@ -25,7 +25,7 @@ class Profile extends AbstractFlow
 
         app()->call('App\Http\Controllers\UserStateController@updateState', [
             'id' => $this->user->id,
-            'status' => 'accepted'
+            'status' => 'ready'
         ]);
     }
 
