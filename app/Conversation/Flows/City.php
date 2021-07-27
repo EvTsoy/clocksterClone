@@ -8,6 +8,11 @@ class City extends AbstractFlow
 {
     public function first()
     {
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'next'
+        ]);
+
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' => 'Выберите город, в котором вы желаете найти работу',
