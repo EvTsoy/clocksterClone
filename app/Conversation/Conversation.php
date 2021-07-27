@@ -80,16 +80,10 @@ class Conversation
             $flow = app(DateOfBirth::class);
             $this->setData($flow, $user, $message);
 
-            if(preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{4})\)/", $message->message_text))
-            {
-                $flow->storeDateOfBirth();
-
-                $flow = app(Profile::class);
-                $this->setData($flow, $user, $message);
-                $flow->first();
-            } else {
-                $flow->first();
-            }
+            $flow->storeDateOfBirth();
+            $flow = app(Profile::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
 
         }
 
