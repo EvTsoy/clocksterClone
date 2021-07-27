@@ -35,7 +35,7 @@ class TelegramController extends Controller
 
             $message = $update->getMessage();
             $user = $message->from;
-            $phoneNumber = $message->contact->phoneNumber ?? 'Unavailable';
+            $phoneNumber = $message->contact->phoneNumber ?? '';
             $option = '';
 
             if(!is_null($message->text) && hash_equals($message->text, 'Профиль')) {

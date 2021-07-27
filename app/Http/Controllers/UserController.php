@@ -77,9 +77,13 @@ class UserController extends Controller
     public function updatePhone($id, $phoneNumber)
     {
         $user = User::findOrFail($id);
-        return $user->update([
-            'phone_number' => $phoneNumber
-        ]);
+        if (isset($phoneNumber) && $phoneNumber !== '') {
+            $user->update([
+                'phone_number' => $phoneNumber
+            ]);
+        }
+        
+        return $user;
     }
 
     public function updateCity($id, $city)
