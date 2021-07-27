@@ -22,13 +22,23 @@ class Profile extends AbstractFlow
                 ],
             ])
         ]);
+
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'accepted'
+        ]);
     }
 
     public function showData()
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
-            'text' => 'Ваше имя' . $this->user->first_name,
+            'text' => urlencode(
+                "
+                Ваше имя: $this->user->first_name \n
+                Ваш телефон: $this->user->phone_number
+                "
+            )
         ]);
     }
 }
