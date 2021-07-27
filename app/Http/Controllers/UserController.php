@@ -81,4 +81,12 @@ class UserController extends Controller
             'phone_number' => $phoneNumber
         ]);
     }
+
+    public function updateCity($id, $city)
+    {
+        $user = User::findOrFail($id);
+        return $user->update([
+            'city' => $city
+        ]);
+    }
 }
