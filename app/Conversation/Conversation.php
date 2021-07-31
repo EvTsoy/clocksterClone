@@ -26,17 +26,21 @@ class Conversation extends AbstractConversation
         if(hash_equals($state->status, 'first') ||
             hash_equals($message->message_text, '/start'))
         {
+            $this->changeStatus('first');
             $this->sendMessage(Welcome::class);
         }
 
         if(hash_equals($option, 'accepted'))
         {
             $this->sendMessage(Fullname::class);
+            $this->changeStatus('intro');
         }
 
         if(hash_equals($state->status, 'intro'))
         {
             $this->storeData(Fullname::class);
+            $this->changeStatus('contacts');
+
             $this->sendMessage(Contacts::class);
         }
 
@@ -46,25 +50,32 @@ class Conversation extends AbstractConversation
 
         if(hash_equals($option, 'contacts'))
         {
-            $this->storeData(Contacts::class);
+            $this->changeStatus('city');
             $this->sendMessage(City::class);
         }
 
         if(hash_equals($state->status, 'city'))
         {
+            $this->changeStatus('next');
             $this->sendMessage(City::class);
         }
 
         if(str_contains($option, 'city.')) {
             $this->city = str_replace('city.', '', $option);
+
             $this->storeCity(City::class);
+
             $this->sendMessage(DateOfBirth::class);
+            $this->changeStatus('dateOfBirth');
         }
 
         if(hash_equals($state->status, 'dateOfBirth'))
         {
             $this->storeData(DateOfBirth::class);
+            $this->changeStatus('profile');
+
             $this->sendMessage(Profile::class);
+            $this->changeStatus('registered');
         }
 
         if(hash_equals($option, 'profile.data')) {

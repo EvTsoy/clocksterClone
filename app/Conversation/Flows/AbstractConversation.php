@@ -34,34 +34,42 @@ abstract class AbstractConversation
 
     public function sendMessage($flowClass)
     {
-        $flow = app($flowClass);
-        $flow->setUser($this->user);
-        $flow->setMessage($this->message);
+        $flow = $this->setData($flowClass);
         $flow->first();
     }
 
     public function storeData($flowClass)
     {
-        $flow = app($flowClass);
-        $flow->setUser($this->user);
-        $flow->setMessage($this->message);
+        $flow = $this->setData($flowClass);
         $flow->storeData();
     }
 
     public function storeCity($flowClass)
     {
-        $flow = app($flowClass);
-        $flow->setUser($this->user);
+        $flow = $this->setData($flowClass);
         $flow->setCity($this->city);
-        $flow->setMessage($this->message);
         $flow->storeData();
     }
 
     public function showProfile($flowClass)
     {
+        $flow = $this->setData($flowClass);
+        $flow->showProfile();
+    }
+
+    public function setData($flowClass)
+    {
         $flow = app($flowClass);
         $flow->setUser($this->user);
         $flow->setMessage($this->message);
-        $flow->showProfile();
+        return $flow;
+    }
+
+    public function changeStatus($status)
+    {
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => $status
+        ]);
     }
 }

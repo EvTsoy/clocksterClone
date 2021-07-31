@@ -8,11 +8,6 @@ class Profile extends AbstractFlow
 {
     public function first()
     {
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'ready'
-        ]);
-
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' => 'Ваш профиль готов',

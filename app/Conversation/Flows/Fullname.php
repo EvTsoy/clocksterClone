@@ -10,11 +10,6 @@ class Fullname extends AbstractFlow
             'chat_id' => $this->user->user_telegram_id,
             'text' => 'Напишите свое имя и фамилию (например: Айгерим Оспанова)',
         ]);
-
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'intro'
-        ]);
     }
 
     public function storeData()
@@ -22,11 +17,6 @@ class Fullname extends AbstractFlow
         app()->call('App\Http\Controllers\UserController@update', [
             'id' => $this->user->id,
             'name' => $this->message->message_text
-        ]);
-
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'contacts'
         ]);
     }
 }

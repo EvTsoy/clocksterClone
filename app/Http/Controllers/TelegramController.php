@@ -71,6 +71,5 @@ class TelegramController extends Controller
 
         //Начало диалога
         $conversation->start($user, $message, $option);
-
     }
 }
