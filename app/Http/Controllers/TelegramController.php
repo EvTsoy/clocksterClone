@@ -43,7 +43,7 @@ class TelegramController extends Controller
             $phoneNumber = $message->contact->phoneNumber ?? '';
             $option = '';
 
-            if($message->contact->phoneNumber !== '') {
+            if($phoneNumber !== '') {
                 $option = 'contacts';
             }
 
