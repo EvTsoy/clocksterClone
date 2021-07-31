@@ -17,7 +17,7 @@ class DateOfBirth extends AbstractFlow
         ]);
     }
 
-    public function storeDateOfBirth()
+    public function storeData()
     {
         app()->call('App\Http\Controllers\UserController@updateDateOfBirth', [
             'id' => $this->user->id,

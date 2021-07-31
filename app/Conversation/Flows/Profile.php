@@ -29,12 +29,13 @@ class Profile extends AbstractFlow
         ]);
     }
 
-    public function showData()
+    public function showProfile()
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' =>
-                "Ваше имя: " . $this->user->first_name
+                "Ваше имя: "
+                . $this->user->first_name
                 . "\nВаш телефон: " . $this->user->phone_number
                 . "\nГод рождения: " . $this->user->date_of_birth
                 . "\nГород поиска: " . $this->user->city,

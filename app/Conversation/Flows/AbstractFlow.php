@@ -12,6 +12,8 @@ abstract class AbstractFlow
 
     protected $message;
 
+    protected $city;
+
     public function setUser(User $user)
     {
         $this->user = $user;
@@ -20,6 +22,11 @@ abstract class AbstractFlow
     public function setMessage(Message $message)
     {
         $this->message = $message;
+    }
+
+    public function setCity($city)
+    {
+        $this->city = $city;
     }
 
     protected function telegram(): Api

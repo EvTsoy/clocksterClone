@@ -9,11 +9,6 @@ class UserStateController extends Controller
 {
     public function store($values)
     {
-
-        Log::debug('UserStateController.values', [
-            'values' => $values,
-        ]);
-
         return State::updateOrCreate([
             'user_id' => $values['user_id']
         ], [

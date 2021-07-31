@@ -27,7 +27,7 @@ class Contacts extends AbstractFlow
         ]);
     }
 
-    public function storePhone()
+    public function storeData()
     {
         app()->call('App\Http\Controllers\UserStateController@updateState', [
             'id' => $this->user->id,

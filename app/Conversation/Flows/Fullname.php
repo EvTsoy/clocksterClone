@@ -17,7 +17,7 @@ class Fullname extends AbstractFlow
         ]);
     }
 
-    public function storeUserName()
+    public function storeData()
     {
         app()->call('App\Http\Controllers\UserController@update', [
             'id' => $this->user->id,

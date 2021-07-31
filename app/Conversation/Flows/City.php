@@ -41,11 +41,11 @@ class City extends AbstractFlow
         ]);
     }
 
-    public function saveCity($city)
+    public function storeData()
     {
         app()->call('App\Http\Controllers\UserController@updateCity', [
             'id' => $this->user->id,
-            'city' => $city
+            'city' => $this->city
         ]);
 
         app()->call('App\Http\Controllers\UserStateController@updateState', [
