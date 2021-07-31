@@ -25,11 +25,6 @@ class Contacts extends AbstractFlow
                 'one_time_keyboard' => true
             ])
         ]);
-
-        app()->call('App\Http\Controllers\UserStateController@updateState', [
-            'id' => $this->user->id,
-            'status' => 'phone'
-        ]);
     }
 
     public function storePhone()
