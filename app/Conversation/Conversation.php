@@ -65,6 +65,10 @@ class Conversation
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
+
+            $flow = app(Profile::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
         }
 
         // Сообщение которое написано не имеет option но состояние пользователя intro
