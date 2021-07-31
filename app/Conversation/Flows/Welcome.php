@@ -10,6 +10,11 @@ class Welcome extends AbstractFlow
 {
     public function first()
     {
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'first'
+        ]);
+
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' => 'Это Клон. Для продолжения работы с ботом вам необходимо ознакомиться и принять условия "Политики конфиденциальности". Если вы согласны с условиями, то нажмите кнопку "Принять"',
