@@ -38,6 +38,7 @@ class City extends AbstractFlow
 
     public function storeData()
     {
+        $this->user->city = $this->city;
         app()->call('App\Http\Controllers\UserController@updateCity', [
             'id' => $this->user->id,
             'city' => $this->city
