@@ -2,6 +2,7 @@
 
 namespace App\Conversation;
 
+use App\Conversation\Flows\AbstractConversation;
 use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\DateOfBirth;
@@ -11,26 +12,13 @@ use App\Conversation\Flows\Welcome;
 use App\Models\Message;
 use App\Models\User;
 
-class Conversation
+class Conversation extends AbstractConversation
 
 {
     public function start(User $user, Message $message, $option)
     {
-        //  Стаус пользователя
-        $state = app()->call('App\Http\Controllers\UserStateController@show', [
-            'id' => $user->id
-        ]);
-
-        // Если статуса нет
-        if(is_null($state)) {
-            $state = app()->call('App\Http\Controllers\UserStateController@store', [
-                'values' => [
-                    'user_id' => $user->id,
-                    'status' => 'first'
-                ]
-            ]);
-        }
-
+        $state = $this->getStatus($user);
+        
         // Политика конфидециальности
         // Если пишет сообщения то бот отправляет политику еще раз
         if(hash_equals($state->status, 'first') ||
@@ -65,10 +53,6 @@ class Conversation
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
-
-            $flow = app(Profile::class);
-            $this->setData($flow, $user, $message);
-            $flow->first();
         }
 
         // Сообщение которое написано не имеет option но состояние пользователя intro
