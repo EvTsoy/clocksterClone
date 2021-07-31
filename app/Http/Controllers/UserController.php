@@ -82,7 +82,7 @@ class UserController extends Controller
                 'phone_number' => $phoneNumber
             ]);
         }
-        
+
         return $user;
     }
 
