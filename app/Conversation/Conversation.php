@@ -10,16 +10,18 @@ use App\Conversation\Flows\Profile;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
 use App\Models\User;
-use Log;
 
 class Conversation
+
 {
     public function start(User $user, Message $message, $option)
     {
+        //  Стаус пользователя
         $state = app()->call('App\Http\Controllers\UserStateController@show', [
             'id' => $user->id
         ]);
 
+        // Если статуса нет
         if(is_null($state)) {
             $state = app()->call('App\Http\Controllers\UserStateController@store', [
                 'values' => [
@@ -29,29 +31,36 @@ class Conversation
             ]);
         }
 
-        if(
-            hash_equals($state->status, 'first') ||
-            hash_equals($message->message_text, '/start')
-        ) {
+        // Политика конфидециальности
+        // Если пишет сообщения то бот отправляет политику еще раз
+        if(hash_equals($state->status, 'first') ||
+            hash_equals($message->message_text, '/start')) {
+
             $flow = app(Welcome::class);
             $this->setData($flow, $user, $message);
             $flow->first();
         }
 
+        // Политика конфидециальности принятие
+        // Здесь состояние пользователя поменяется на accepted
         if(hash_equals($option, 'accepted')) {
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->first();
         }
 
+        // Сообщение которое написано не имеет option но состояние пользователя intro
         if(hash_equals($state->status, 'intro')) {
+            //Сохраняем имя
             $flow = app(Fullname::class);
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
 
-            $flow = app(Contacts::class);
-            $this->setData($flow, $user, $message);
-            $flow->first();
+            if($option === '') {
+                $flow = app(Contacts::class);
+                $this->setData($flow, $user, $message);
+                $flow->first();
+            }
         }
 
         if(hash_equals($state->status, 'phone')) {

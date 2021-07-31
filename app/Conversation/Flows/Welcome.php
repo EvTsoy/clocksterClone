@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Conversation\Flows;
-
 use Telegram\Bot\Keyboard\Keyboard;
-
-use Log;
 
 class Welcome extends AbstractFlow
 {

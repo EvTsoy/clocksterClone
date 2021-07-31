@@ -21,20 +21,16 @@ class TelegramController extends Controller
 
             $option = $update->callbackQuery->data;
 
+            // Запрос и сохранение сообщения
             $message = $update->getMessage();
             $message = app()->call('App\Http\Controllers\MessageController@store', [
                 'message' => $message
             ]);
 
+            //Запрос и сохранение пользователя
             $user = app()->call('App\Http\Controllers\UserController@show', [
                 'id' => $update->callbackQuery->from->id
             ]);
-
-            app()->call('App\Http\Controllers\UserStateController@updateState', [
-                'id' => $user->id,
-                'status' => $option
-            ]);
-
         }
 
         else {
