@@ -14,6 +14,7 @@ class DateOfBirth extends AbstractFlow
 
     public function storeData()
     {
+        $this->user->date_of_birth = $this->message->message_text;
         app()->call('App\Http\Controllers\UserController@updateDateOfBirth', [
             'id' => $this->user->id,
             'dateOfBirth' => $this->message->message_text
