@@ -31,6 +31,12 @@ class TelegramController extends Controller
             $user = app()->call('App\Http\Controllers\UserController@show', [
                 'id' => $update->callbackQuery->from->id
             ]);
+
+            //В зависимости от колбэка меняется состояние пользователя
+            app()->call('App\Http\Controllers\UserStateController@updateState', [
+                'id' => $user->id,
+                'status' => $option
+            ]);
         }
 
         else {
