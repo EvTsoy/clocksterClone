@@ -25,7 +25,20 @@ class Profile extends AbstractFlow
                         ],
                     ]
                 ],
+            ])
+        ]);
+    }
 
+    public function showData()
+    {
+        $this->telegram()->sendMessage([
+            'chat_id' => $this->user->user_telegram_id,
+            'text' =>
+                "Ваше имя: " . $this->user->first_name
+                . "\nВаш телефон: " . $this->user->phone_number
+                . "\nГод рождения: " . $this->user->date_of_birth
+                . "\nГород поиска: " . $this->user->city,
+            'reply_markup' => Keyboard::make([
                 'inline_keyboard' =>
                     array(
 
@@ -50,18 +63,6 @@ class Profile extends AbstractFlow
                         )
                     ),
             ])
-        ]);
-    }
-
-    public function showData()
-    {
-        $this->telegram()->sendMessage([
-            'chat_id' => $this->user->user_telegram_id,
-            'text' =>
-                "Ваше имя: " . $this->user->first_name
-                . "\nВаш телефон: " . $this->user->phone_number
-                . "\nГод рождения: " . $this->user->date_of_birth
-                . "\nГород поиска: " . $this->user->city
         ]);
     }
 }
