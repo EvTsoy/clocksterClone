@@ -27,13 +27,16 @@ class Profile extends AbstractFlow
     public function showProfile()
     {
         $this->telegram()->sendMessage([
+            'parse_mode' => 'HTML',
             'chat_id' => $this->user->user_telegram_id,
             'text' =>
                 "Ваше имя: "
                 . $this->user->first_name
-                . "\nВаш телефон: " . $this->user->phone_number
-                . "\nГод рождения: " . $this->user->date_of_birth
-                . "\nГород поиска: " . $this->user->city,
+                . "\n<b>Ваш телефон: </b>" . $this->user->phone_number
+                . "\n<b>Год рождения: </b>" . $this->user->date_of_birth
+                . "\n<b>Город поиска: </b>" . $this->user->city
+                . "\n___"
+                . "\n Вы можете изменить параметры своего профиля, нажав на соответствующую кнопку ниже",
             'reply_markup' => Keyboard::make([
                 'inline_keyboard' =>
                     array(
