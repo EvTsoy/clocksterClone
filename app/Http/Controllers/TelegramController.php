@@ -22,7 +22,6 @@ class TelegramController extends Controller
             $option = $update->callbackQuery->data;
 
             $message = $update->getMessage();
-
             $message = app()->call('App\Http\Controllers\MessageController@store', [
                 'message' => $message
             ]);
@@ -31,8 +30,12 @@ class TelegramController extends Controller
                 'id' => $update->callbackQuery->from->id
             ]);
 
-        } else {
+            app()->call('App\Http\Controllers\UserStateController@updateState', [
+                'id' => $user->id,
+                'status' => $option
+            ]);
 
+        } else {
             $message = $update->getMessage();
             $user = $message->from;
             $phoneNumber = $message->contact->phoneNumber ?? '';
@@ -51,7 +54,6 @@ class TelegramController extends Controller
                 'id' => $user->id,
                 'phoneNumber' => $phoneNumber,
             ]);
-
 
             //Сохранение сообщений
             $message = app()->call('App\Http\Controllers\MessageController@store', [

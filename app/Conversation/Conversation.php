@@ -29,10 +29,6 @@ class Conversation
             ]);
         }
 
-        Log::debug('Conversation.start', [
-            'Conversation.message' => $message,
-        ]);
-
         if(
             hash_equals($state->status, 'first') ||
             hash_equals($message->message_text, '/start')
