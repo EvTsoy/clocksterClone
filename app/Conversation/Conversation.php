@@ -61,7 +61,7 @@ class Conversation extends AbstractConversation
             $this->sendMessage(City::class);
         }
 
-        if(str_contains($option, 'city.')) {
+        if(str_contains($option, 'city.') && $state->status !== 'editedCity') {
             $this->city = str_replace('city.', '', $option);
 
             $this->storeCity(City::class);
