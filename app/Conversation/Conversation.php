@@ -55,7 +55,7 @@ class Conversation
             $flow->first();
 
             app()->call('App\Http\Controllers\UserStateController@updateState', [
-                'id' => $this->user->id,
+                'id' => $user->id,
                 'status' => 'editName'
             ]);
 
