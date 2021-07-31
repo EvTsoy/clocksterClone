@@ -12,13 +12,13 @@ class Contacts extends AbstractFlow
     public function first()
     {
         $btn = Keyboard::button([
-            'text' => 'Share my phone number',
+            'text' => 'Отправить номер',
             'request_contact' => true
         ]);
 
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
-            'text' => 'Telephone',
+            'text' => 'Для того, чтобы работодатель смог с вами связаться, нам нужен ваш номер телефона. Нажмите на кнопку "Отправить номер", открыв меню через иконку справа от строки ввода текста сообщения',
             'reply_markup' => Keyboard::make([
                 'keyboard' => [[$btn]],
                 'resize_keyboard' => true,
@@ -26,6 +26,14 @@ class Contacts extends AbstractFlow
             ])
         ]);
 
+        app()->call('App\Http\Controllers\UserStateController@updateState', [
+            'id' => $this->user->id,
+            'status' => 'phone'
+        ]);
+    }
+
+    public function storePhone()
+    {
         app()->call('App\Http\Controllers\UserStateController@updateState', [
             'id' => $this->user->id,
             'status' => 'city'

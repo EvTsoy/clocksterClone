@@ -54,6 +54,18 @@ class Conversation
             $flow->first();
         }
 
+        if(hash_equals($state->status, 'phone')) {
+            $flow = app(Contacts::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
+        }
+
+        if(hash_equals($state->status, 'contacts')) {
+            $flow = app(Contacts::class);
+            $this->setData($flow, $user, $message);
+            $flow->storePhone();
+        }
+
         if(hash_equals($state->status, 'city')) {
             $flow = app(City::class);
             $this->setData($flow, $user, $message);

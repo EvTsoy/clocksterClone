@@ -35,11 +35,17 @@ class TelegramController extends Controller
                 'status' => $option
             ]);
 
-        } else {
+        }
+
+        else {
             $message = $update->getMessage();
             $user = $message->from;
             $phoneNumber = $message->contact->phoneNumber ?? '';
             $option = '';
+
+            if($message->contact->phoneNumber !== '') {
+                $option = 'contacts';
+            }
 
             if(!is_null($message->text) && hash_equals($message->text, 'Профиль')) {
                 $option = 'profile.data';
