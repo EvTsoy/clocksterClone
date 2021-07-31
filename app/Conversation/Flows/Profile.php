@@ -31,7 +31,7 @@ class Profile extends AbstractFlow
             'chat_id' => $this->user->user_telegram_id,
             'text' =>
                 "Как видят ваш профиль работодатели:"
-                . "\n\n<b>$this->user->first_name</b>"
+                . "\n\n<b>" . $this->user->first_name . "</b>"
                 . "\n<b>Ваш телефон: </b>" . $this->user->phone_number
                 . "\n<b>Год рождения: </b>" . $this->user->date_of_birth
                 . "\n<b>Город поиска: </b>" . $this->user->city
