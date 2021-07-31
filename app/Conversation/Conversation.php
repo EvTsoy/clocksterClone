@@ -7,6 +7,7 @@ use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\DateOfBirth;
 use App\Conversation\Flows\Fullname;
+use App\Conversation\Flows\Notification;
 use App\Conversation\Flows\Profile;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
@@ -92,6 +93,36 @@ class Conversation extends AbstractConversation
         if(hash_equals($state->status, 'editedName'))
         {
             $this->storeData(Fullname::class);
+            $this->sendMessage(Notification::class);
+            $this->showProfile(Profile::class);
+            $this->changeStatus('registered');
+        }
+
+        if(hash_equals($state->status, 'editYear'))
+        {
+            $this->sendMessage(DateOfBirth::class);
+            $this->changeStatus('editedYear');
+        }
+
+        if(hash_equals($state->status, 'editedYear'))
+        {
+            $this->storeData(DateOfBirth::class);
+            $this->sendMessage(Notification::class);
+            $this->showProfile(Profile::class);
+            $this->changeStatus('registered');
+        }
+
+        if(hash_equals($state->status, 'editCity'))
+        {
+            $this->sendMessage(City::class);
+            $this->changeStatus('editedCity');
+        }
+
+        if(hash_equals($state->status, 'editedCity'))
+        {
+            $this->city = str_replace('city.', '', $option);
+            $this->storeCity(City::class);
+            $this->sendMessage(Notification::class);
             $this->showProfile(Profile::class);
             $this->changeStatus('registered');
         }
