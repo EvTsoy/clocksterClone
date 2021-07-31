@@ -78,8 +78,22 @@ class Conversation extends AbstractConversation
             $this->changeStatus('registered');
         }
 
-        if(hash_equals($option, 'profile.data')) {
+        if(hash_equals($option, 'profile.data'))
+        {
             $this->showProfile(Profile::class);
+        }
+
+        if(hash_equals($state->status, 'editName'))
+        {
+            $this->sendMessage(Fullname::class);
+            $this->changeStatus('editedName');
+        }
+
+        if(hash_equals($state->status, 'editedName'))
+        {
+            $this->storeData(Fullname::class);
+            $this->showProfile(Profile::class);
+            $this->changeStatus('registered');
         }
     }
 }
