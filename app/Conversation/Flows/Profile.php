@@ -41,24 +41,22 @@ class Profile extends AbstractFlow
             'reply_markup' => Keyboard::make([
                 'inline_keyboard' =>
                     array(
-
                         array(
                             array(
                                 'text' => 'Имя',
-                                'callback_data' => 'accepted'
+                                'callback_data' => 'editName'
                             ),
                         ),
                         array(
                             array(
                                 'text' => 'Дата рождения',
-                                'callback_data' => 'accepted'
+                                'callback_data' => 'editYear'
                             ),
                         ),
-
                         array(
                             array(
                                 'text' => 'Город',
-                                'callback_data' => 'accepted'
+                                'callback_data' => 'editCity'
                             )
                         )
                     ),

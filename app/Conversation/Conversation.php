@@ -49,6 +49,24 @@ class Conversation
             $flow->first();
         }
 
+        if(hash_equals($option, 'editName')) {
+            $flow = app(Fullname::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
+
+            app()->call('App\Http\Controllers\UserStateController@updateState', [
+                'id' => $this->user->id,
+                'status' => 'editName'
+            ]);
+
+        }
+        if(hash_equals($state->status, 'editName')) {
+            //Сохраняем имя
+            $flow = app(Fullname::class);
+            $this->setData($flow, $user, $message);
+            $flow->storeUserName();
+        }
+
         // Сообщение которое написано не имеет option но состояние пользователя intro
         if(hash_equals($state->status, 'intro')) {
             //Сохраняем имя
@@ -56,11 +74,9 @@ class Conversation
             $this->setData($flow, $user, $message);
             $flow->storeUserName();
 
-            if($option === '') {
-                $flow = app(Contacts::class);
-                $this->setData($flow, $user, $message);
-                $flow->first();
-            }
+            $flow = app(Contacts::class);
+            $this->setData($flow, $user, $message);
+            $flow->first();
         }
 
         if(hash_equals($state->status, 'phone')) {
