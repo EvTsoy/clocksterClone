@@ -25,6 +25,30 @@ class Profile extends AbstractFlow
                         ],
                     ]
                 ],
+
+                'inline_keyboard' =>
+                    array(
+
+                        array(
+                            array(
+                                'text' => 'Имя',
+                                'callback_data' => 'accepted'
+                            ),
+                        ),
+                        array(
+                            array(
+                                'text' => 'Дата рождения',
+                                'callback_data' => 'accepted'
+                            ),
+                        ),
+
+                        array(
+                            array(
+                                'text' => 'Город',
+                                'callback_data' => 'accepted'
+                            )
+                        )
+                    ),
             ])
         ]);
     }
