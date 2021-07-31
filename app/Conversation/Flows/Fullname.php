@@ -14,6 +14,7 @@ class Fullname extends AbstractFlow
 
     public function storeData()
     {
+        $this->user->first_name = $this->message->message_text;
         app()->call('App\Http\Controllers\UserController@update', [
             'id' => $this->user->id,
             'name' => $this->message->message_text

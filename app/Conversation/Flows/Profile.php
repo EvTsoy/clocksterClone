@@ -42,8 +42,6 @@ class Profile extends AbstractFlow
                                 'text' => 'Имя',
                                 'callback_data' => 'editName'
                             ),
-                        ),
-                        array(
                             array(
                                 'text' => 'Дата рождения',
                                 'callback_data' => 'editYear'
