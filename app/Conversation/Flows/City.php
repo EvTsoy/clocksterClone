@@ -8,30 +8,16 @@ class City extends AbstractFlow
 {
     public function first()
     {
+        $cities = app()->call('App\Http\Controllers\CityController@index');
+        $chunks = $cities->chunk(3);
+        $buttons = $chunks->toArray();
+        
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
             'text' => 'Выберите город, в котором вы желаете найти работу',
             'reply_markup' => Keyboard::make([
-                'inline_keyboard' => [
-                    [
-                        [
-                            'text' => 'Almaty',
-                            'callback_data' => 'city.Almaty'
-                        ],
-[
-                            'text' => 'Astana',
-                            'callback_data' => 'city.Astana'
-                        ],
-[
-                            'text' => 'Moscow',
-                            'callback_data' => 'city.Moscow'
-                        ],
-                        [
-                            'text' => 'Tashkent',
-                            'callback_data' => 'city.Tashkent'
-                        ]
-                    ]
-                ],
+                'inline_keyboard' =>
+                    array($buttons),
             ])
         ]);
     }
