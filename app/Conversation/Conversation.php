@@ -40,12 +40,12 @@ class Conversation extends AbstractConversation
         if(hash_equals($state->status, 'intro'))
         {
             $this->storeData(Fullname::class);
-            $this->changeStatus('contacts');
 
             $this->sendMessage(Contacts::class);
+            $this->changeStatus('phone');
         }
 
-        if(hash_equals($state->status, 'phone')) {
+        if(hash_equals($state->status, 'phone') && $option !== 'contacts') {
             $this->sendMessage(Contacts::class);
         }
 
@@ -55,9 +55,8 @@ class Conversation extends AbstractConversation
             $this->sendMessage(City::class);
         }
 
-        if(hash_equals($state->status, 'city'))
+        if(hash_equals($state->status, 'city') && !str_contains($option, 'city.'))
         {
-            $this->changeStatus('next');
             $this->sendMessage(City::class);
         }
 
