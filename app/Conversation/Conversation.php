@@ -70,6 +70,7 @@ class Conversation extends AbstractConversation
 
         if(hash_equals($state->status, 'customCity') && !hash_equals($option, 'customCity'))
         {
+            $this->city = $message->message_text;
             $this->storeCity(City::class);
 
             $this->sendMessage(DateOfBirth::class);
