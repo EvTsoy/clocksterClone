@@ -111,7 +111,12 @@ class Conversation extends AbstractConversation
             $this->changeStatus('editedYear');
         }
 
-        if(hash_equals($state->status, 'editedYear'))
+        if(hash_equals($state->status, 'editedYear') && !preg_match($this->ddmmyyyy, $message->message_text))
+        {
+            $this->sendMessage(DateOfBirth::class);
+        }
+
+        if(hash_equals($state->status, 'editedYear') && preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->storeData(DateOfBirth::class);
             $this->sendMessage(Notification::class);
