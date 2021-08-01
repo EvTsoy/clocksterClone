@@ -69,7 +69,12 @@ class Conversation extends AbstractConversation
             $this->changeStatus('dateOfBirth');
         }
 
-        if(hash_equals($state->status, 'dateOfBirth'))
+        if(hash_equals($state->status, 'dateOfBirth') && !preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{2})|([0-9]{4})\)/", $message->message_text))
+        {
+            $this->sendMessage(City::class);
+        }
+
+        if(hash_equals($state->status, 'dateOfBirth') && preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{2})|([0-9]{4})\)/", $message->message_text))
         {
             $this->storeData(DateOfBirth::class);
             $this->changeStatus('profile');

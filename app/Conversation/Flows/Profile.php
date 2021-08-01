@@ -10,7 +10,11 @@ class Profile extends AbstractFlow
     {
         $this->telegram()->sendMessage([
             'chat_id' => $this->user->user_telegram_id,
-            'text' => 'Ваш профиль готов',
+            'text' =>
+                'Ваш профиль готов!'
+                . "\nМы уже начали подбирать для вас подходящие вакансии. "
+                . "Также вы сами можете начать поиск, используя команду /search"
+            ,
             'reply_markup' => Keyboard::make([
                 'keyboard' => [
                     [
