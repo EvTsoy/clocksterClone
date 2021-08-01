@@ -68,7 +68,7 @@ class Conversation extends AbstractConversation
             $this->sendCustomMessage(City::class);
         }
 
-        if(hash_equals($state->status, 'customCity'))
+        if(hash_equals($state->status, 'customCity') && !hash_equals($option, 'customCity'))
         {
             $this->storeCity(City::class);
 
