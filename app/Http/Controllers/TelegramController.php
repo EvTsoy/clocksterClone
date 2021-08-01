@@ -36,7 +36,6 @@ class TelegramController extends Controller
                 'id' => $user->id
             ]);
 
-            //В зависимости от колбэка меняется состояние пользователя
             if($state->status === 'editedCity')
             {
                 app()->call('App\Http\Controllers\UserStateController@updateState', [
