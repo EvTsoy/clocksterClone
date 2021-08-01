@@ -38,6 +38,12 @@ abstract class AbstractConversation
         $flow->first();
     }
 
+    public function sendCustomMessage($flowClass)
+    {
+        $flow = $this->setData($flowClass);
+        $flow->customCity();
+    }
+
     public function storeData($flowClass)
     {
         $flow = $this->setData($flowClass);

@@ -63,6 +63,19 @@ class Conversation extends AbstractConversation
             $this->sendMessage(City::class);
         }
 
+        if(hash_equals($state->status, 'customCity') && hash_equals($option, 'customCity'))
+        {
+            $this->sendCustomMessage(City::class);
+        }
+
+        if(hash_equals($state->status, 'customCity'))
+        {
+            $this->storeCity(City::class);
+
+            $this->sendMessage(DateOfBirth::class);
+            $this->changeStatus('dateOfBirth');
+        }
+
         if(str_contains($option, 'city.') && $state->status !== 'editedCity') {
             $this->city = str_replace('city.', '', $option);
 
