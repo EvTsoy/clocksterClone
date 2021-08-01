@@ -9,6 +9,7 @@ use App\Conversation\Flows\DateOfBirth;
 use App\Conversation\Flows\Fullname;
 use App\Conversation\Flows\Notification;
 use App\Conversation\Flows\Profile;
+use App\Conversation\Flows\Search;
 use App\Conversation\Flows\Welcome;
 use App\Models\Message;
 use App\Models\User;
@@ -32,6 +33,11 @@ class Conversation extends AbstractConversation
         {
             $this->changeStatus('first');
             $this->sendMessage(Welcome::class);
+        }
+
+        if(hash_equals($message->message_text, '/search'))
+        {
+            $this->sendMessage(Search::class);
         }
 
         if(hash_equals($option, 'accepted'))
