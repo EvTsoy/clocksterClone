@@ -17,7 +17,7 @@ class Conversation extends AbstractConversation
 
 
 {
-    protected $ddmmyyyy = "/([0-9]{2}\.[0-9]{2}\.[0-9]{4})/";
+    protected $ddmmyyyy = "/^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/";
 
     public function start(User $user, Message $message, $option)
     {
