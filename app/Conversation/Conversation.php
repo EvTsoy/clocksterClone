@@ -15,7 +15,10 @@ use App\Models\User;
 
 class Conversation extends AbstractConversation
 
+
 {
+    protected $ddmmyyyy = "/([0-9]{2}\.[0-9]{2}\.[0-9]{4})/";
+
     public function start(User $user, Message $message, $option)
     {
         $this->user = $user;
@@ -69,12 +72,12 @@ class Conversation extends AbstractConversation
             $this->changeStatus('dateOfBirth');
         }
 
-        if(hash_equals($state->status, 'dateOfBirth') && !preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{2})|([0-9]{4})\)/", $message->message_text))
+        if(hash_equals($state->status, 'dateOfBirth') && !preg_match($this->ddmmyyyy, $message->message_text))
         {
-            $this->sendMessage(City::class);
+            $this->sendMessage(DateOfBirth::class);
         }
 
-        if(hash_equals($state->status, 'dateOfBirth') && preg_match("/\([0-9]{2}\.[0-9]{2}\.([0-9]{2})|([0-9]{4})\)/", $message->message_text))
+        if(hash_equals($state->status, 'dateOfBirth') && preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->storeData(DateOfBirth::class);
             $this->changeStatus('profile');
