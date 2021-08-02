@@ -29,6 +29,7 @@ class Conversation extends AbstractConversation
 
         $state = $this->getStatus($user);
 
+        // Самое первое сообщение
         if(hash_equals($state->status, 'first') ||
             hash_equals($message->message_text, '/start'))
         {
@@ -36,17 +37,20 @@ class Conversation extends AbstractConversation
             $this->sendMessage(Welcome::class);
         }
 
+        // Для реализации поиска работы
         if(hash_equals($message->message_text, '/search'))
         {
             $this->sendMessage(Search::class);
         }
 
+        // Принятие условий и запрос имени
         if(hash_equals($option, 'accepted'))
         {
             $this->sendMessage(Fullname::class);
             $this->changeStatus('intro');
         }
 
+        // Сохраняем имя и спрашиваем телефон
         if(hash_equals($state->status, 'intro'))
         {
             $this->storeData(Fullname::class);
@@ -55,26 +59,31 @@ class Conversation extends AbstractConversation
             $this->changeStatus('phone');
         }
 
+        // Если отправляется что-то помимо телефона
         if(hash_equals($state->status, 'phone') && $option !== 'contacts') {
             $this->sendMessage(Contacts::class);
         }
 
+        // Если телефон отправлен то сохраняем и спрашиваем город
         if(hash_equals($option, 'contacts'))
         {
             $this->changeStatus('city');
             $this->sendMessage(City::class);
         }
 
+        // Если отправляется что-то помимо города
         if(hash_equals($state->status, 'city') && !str_contains($option, 'city.'))
         {
             $this->sendMessage(City::class);
         }
 
+        // Если нужно сохранить кастомный город
         if(hash_equals($state->status, 'customCity') && hash_equals($option, 'customCity'))
         {
             $this->sendCustomMessage(City::class);
         }
 
+        // Сохраняем город и спрашиваем про дату рождения
         if(hash_equals($state->status, 'customCity') && !hash_equals($option, 'customCity'))
         {
             $this->city = $message->message_text;
@@ -84,6 +93,7 @@ class Conversation extends AbstractConversation
             $this->changeStatus('dateOfBirth');
         }
 
+        // Сохраняем город и спрашиваем про дату рождения
         if(str_contains($option, 'city.') && $state->status !== 'editedCity') {
             $this->city = str_replace('city.', '', $option);
 
@@ -93,11 +103,13 @@ class Conversation extends AbstractConversation
             $this->changeStatus('dateOfBirth');
         }
 
+        // Проверка введенной даты рождения
         if(hash_equals($state->status, 'dateOfBirth') && !preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->sendMessage(DateOfBirth::class);
         }
 
+        // Проверка введенной даты рождения
         if(hash_equals($state->status, 'dateOfBirth') && preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->storeData(DateOfBirth::class);
@@ -107,40 +119,46 @@ class Conversation extends AbstractConversation
             $this->changeStatus('registered');
         }
 
+        // Показываем профиль
         if(hash_equals($option, 'profile.data'))
         {
             $this->showProfile(Profile::class);
         }
 
+        // Вводим информацию о приходе
         if(hash_equals($option, 'checkin.data'))
         {
             $this->sendMessage(CheckIn::class);
             $this->changeStatus('checkin');
         }
 
+        // Вывод информации о приходе
         if(hash_equals($option, 'allCheckin.data'))
         {
             $this->sendAllCheckIns(CheckIn::class);
 
-            $this->sendMessage(Profile::class);
+//            $this->sendMessage(Profile::class);
             $this->changeStatus('registered');
         }
 
+        // Вводим информацию о приходе
         if(hash_equals($state->status, 'checkin'))
         {
             $this->checkIn(Notification::class);
 
-            $this->sendMessage(Profile::class);
-            $this->showProfile(Profile::class);
+//            $this->sendMessage(Profile::class);
+//            $this->showProfile(Profile::class);
             $this->changeStatus('registered');
         }
 
+        // Редактирование имени
         if(hash_equals($state->status, 'editName'))
         {
             $this->sendMessage(Fullname::class);
             $this->changeStatus('editedName');
         }
 
+        // Редактирование имени
         if(hash_equals($state->status, 'editedName'))
         {
             $this->storeData(Fullname::class);
@@ -149,17 +167,20 @@ class Conversation extends AbstractConversation
             $this->changeStatus('registered');
         }
 
+        // Редактирование даты рождения
         if(hash_equals($state->status, 'editYear'))
         {
             $this->sendMessage(DateOfBirth::class);
             $this->changeStatus('editedYear');
         }
 
+        // Редактирование даты рождения
         if(hash_equals($state->status, 'editedYear') && !preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->sendMessage(DateOfBirth::class);
         }
 
+        // Редактирование даты рождения
         if(hash_equals($state->status, 'editedYear') && preg_match($this->ddmmyyyy, $message->message_text))
         {
             $this->storeData(DateOfBirth::class);
@@ -168,12 +189,14 @@ class Conversation extends AbstractConversation
             $this->changeStatus('registered');
         }
 
+        // Редактирование Город
         if(hash_equals($state->status, 'editCity'))
         {
             $this->sendMessage(City::class);
             $this->changeStatus('editedCity');
         }
 
+        // Редактирование Город
         if(hash_equals($state->status, 'editedCity') && !hash_equals($option, 'customCity'))
         {
             if(str_contains($option, 'city.'))
@@ -188,6 +211,7 @@ class Conversation extends AbstractConversation
             $this->changeStatus('registered');
         }
 
+        // Редактирование Город
         if(hash_equals($state->status, 'editedCity') && hash_equals($option, 'customCity'))
         {
             $this->sendCustomMessage(City::class);
