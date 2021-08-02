@@ -10,7 +10,7 @@ class CheckIn extends AbstractFlow
     {
         $btn = Keyboard::button([
             'text' => 'Отправить локацию',
-            '$request_location' => true
+            'request_location' => true
         ]);
 
         $this->telegram()->sendMessage([
