@@ -67,7 +67,7 @@ class TelegramController extends Controller
                 $option = 'profile.data';
             }
 
-            if(!is_null($message->text) && hash_equals($message->text, 'Приход')) {
+            if(!is_null($message->text) && hash_equals($message->text, 'Проставить приход')) {
                 $option = 'checkin.data';
             }
 
