@@ -15,6 +15,10 @@ class CreateCheckInsTable extends Migration
     {
         Schema::create('check_ins', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
+            $table->bigInteger('time')->nullable();
             $table->timestamps();
         });
     }

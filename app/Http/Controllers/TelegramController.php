@@ -54,6 +54,9 @@ class TelegramController extends Controller
             $message = $update->getMessage();
             $user = $message->from;
             $phoneNumber = $message->contact->phoneNumber ?? '';
+            $location = $message->location;
+            $date = $message->date;
+
             $option = '';
 
             if($phoneNumber !== '') {
@@ -76,6 +79,12 @@ class TelegramController extends Controller
             app()->call('App\Http\Controllers\UserController@updatePhone', [
                 'id' => $user->id,
                 'phoneNumber' => $phoneNumber,
+            ]);
+
+            app()->call('App\Http\Controllers\CheckInController@store', [
+                'id' => $user->id,
+                'date' => $date,
+                'location' => $location
             ]);
 
             //Сохранение сообщений

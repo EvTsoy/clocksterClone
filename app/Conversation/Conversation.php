@@ -120,8 +120,10 @@ class Conversation extends AbstractConversation
 
         if(hash_equals($state->status, 'checkin'))
         {
+            $this->storeData(CheckIn::class);
             $this->checkIn(Notification::class);
 
+            $this->sendMessage(Profile::class);
             $this->showProfile(Profile::class);
             $this->changeStatus('registered');
         }

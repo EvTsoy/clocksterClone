@@ -23,4 +23,9 @@ class CheckIn extends AbstractFlow
             ])
         ]);
     }
+
+    public function storeData()
+    {
+
+    }
 }
