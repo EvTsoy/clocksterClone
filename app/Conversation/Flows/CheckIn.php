@@ -35,7 +35,9 @@ class CheckIn extends AbstractFlow
                     'chat_id' => $this->user->user_telegram_id,
                     'text' =>
                         "Ваши приходы:"
-                        . "\n<b>Время: </b>" . Carbon::createFromTimestamp($checkin->time)->toDateTimeString()
+                        . "\n<b>Время: </b>" . Carbon::createFromTimestamp($checkin->time)
+                            ->setTimezone('Asia/Almaty')
+                            ->toDateTimeString()
                         . "\n<b>Широта: </b>" . $checkin->lat
                         . "\n<b>Долгота: </b>" . $checkin->lng
                         . "\n\n---"
