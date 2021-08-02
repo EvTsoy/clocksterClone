@@ -16,7 +16,7 @@ class CheckInController extends Controller
     public function store($id, $date, $location)
     {
         $user = User::findOrFail($id);
-        if (isset($location)) {
+        if ($location !== '') {
              $checkin = CheckIn::create([
                 'user_id' => $user->id,
                 'lat' => $location['latitude'],
