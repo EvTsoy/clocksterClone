@@ -132,6 +132,13 @@ class Conversation extends AbstractConversation
             $this->changeStatus('checkin');
         }
 
+        // Вводим информацию о приходе
+        if(hash_equals($state->status, 'checkin') && !hash_equals($option, 'location'))
+        {
+            $this->sendMessage(CheckIn::class);
+        }
+
+
         // Вывод информации о приходе
         if(hash_equals($option, 'allCheckin.data'))
         {
@@ -142,7 +149,7 @@ class Conversation extends AbstractConversation
         }
 
         // Вводим информацию о приходе
-        if(hash_equals($state->status, 'checkin'))
+        if(hash_equals($state->status, 'checkin') && hash_equals($option, 'location'))
         {
             $this->checkIn(Notification::class);
 

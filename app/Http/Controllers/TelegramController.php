@@ -54,13 +54,17 @@ class TelegramController extends Controller
             $message = $update->getMessage();
             $user = $message->from;
             $phoneNumber = $message->contact->phoneNumber ?? '';
-            $location = $message->location;
-            $date = $message->date;
+            $location = $message->location ?? '';;
+            $date = $message->date ?? '';;
 
             $option = '';
 
             if($phoneNumber !== '') {
                 $option = 'contacts';
+            }
+
+            if($location !== '') {
+                $option = 'location';
             }
 
             if(!is_null($message->text) && hash_equals($message->text, 'Профиль')) {
