@@ -170,7 +170,7 @@ class Conversation extends AbstractConversation
             $this->sendCustomMessage(City::class);
         }
 
-        if(hash_equals($state->status, 'checkin.data'))
+        if(hash_equals($option, 'checkin.data'))
         {
             $this->sendMessage(CheckIn::class);
         }

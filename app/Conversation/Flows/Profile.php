@@ -22,6 +22,8 @@ class Profile extends AbstractFlow
                             'text' => 'Профиль',
                             'callback_data' => 'profile.data'
                         ],
+                    ],
+                    [
                         [
                             'text' => 'Приход',
                             'callback_data' => 'checkin.data'
