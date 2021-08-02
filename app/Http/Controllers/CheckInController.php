@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CheckInController extends Controller
 {
+    public function index()
+    {
+        return CheckIn::all();
+    }
+
     public function store($id, $date, $location)
     {
         $user = User::findOrFail($id);

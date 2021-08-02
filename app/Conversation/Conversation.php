@@ -118,6 +118,14 @@ class Conversation extends AbstractConversation
             $this->changeStatus('checkin');
         }
 
+        if(hash_equals($option, 'allCheckin.data'))
+        {
+            $this->sendAllCheckIns(CheckIn::class);
+
+            $this->sendMessage(Profile::class);
+            $this->changeStatus('registered');
+        }
+
         if(hash_equals($state->status, 'checkin'))
         {
             $this->storeData(CheckIn::class);

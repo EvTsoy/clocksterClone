@@ -44,6 +44,13 @@ abstract class AbstractConversation
         $flow->checkedIn();
     }
 
+    public function sendAllCheckIns($flowClass)
+    {
+        $flow = $this->setData($flowClass);
+        $flow->sendAllCheckedIns();
+    }
+
+
     public function sendCustomMessage($flowClass)
     {
         $flow = $this->setData($flowClass);
