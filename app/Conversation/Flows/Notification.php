@@ -11,4 +11,12 @@ class Notification extends AbstractFlow
             'text' => 'Профиль успешно обновлен',
         ]);
     }
+
+    public function checkedIn()
+    {
+        $this->telegram()->sendMessage([
+            'chat_id' => $this->user->user_telegram_id,
+            'text' => 'Приход проставлен',
+        ]);
+    }
 }

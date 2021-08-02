@@ -112,6 +112,20 @@ class Conversation extends AbstractConversation
             $this->showProfile(Profile::class);
         }
 
+        if(hash_equals($option, 'checkin.data'))
+        {
+            $this->sendMessage(CheckIn::class);
+            $this->changeStatus('checkin');
+        }
+
+        if(hash_equals($state->status, 'checkin'))
+        {
+            $this->checkIn(Notification::class);
+
+            $this->showProfile(Profile::class);
+            $this->changeStatus('registered');
+        }
+
         if(hash_equals($state->status, 'editName'))
         {
             $this->sendMessage(Fullname::class);
@@ -168,11 +182,6 @@ class Conversation extends AbstractConversation
         if(hash_equals($state->status, 'editedCity') && hash_equals($option, 'customCity'))
         {
             $this->sendCustomMessage(City::class);
-        }
-
-        if(hash_equals($option, 'checkin.data'))
-        {
-            $this->sendMessage(CheckIn::class);
         }
     }
 }

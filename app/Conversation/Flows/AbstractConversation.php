@@ -38,6 +38,12 @@ abstract class AbstractConversation
         $flow->first();
     }
 
+    public function checkIn($flowClass)
+    {
+        $flow = $this->setData($flowClass);
+        $flow->checkedIn();
+    }
+
     public function sendCustomMessage($flowClass)
     {
         $flow = $this->setData($flowClass);

@@ -64,6 +64,10 @@ class TelegramController extends Controller
                 $option = 'profile.data';
             }
 
+            if(!is_null($message->text) && hash_equals($message->text, 'Приход')) {
+                $option = 'checkin.data';
+            }
+
             //Сохраненяем пользователя
             $user = app()->call('App\Http\Controllers\UserController@store', [
                 'user' => $user,
