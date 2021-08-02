@@ -3,6 +3,7 @@
 namespace App\Conversation;
 
 use App\Conversation\Flows\AbstractConversation;
+use App\Conversation\Flows\CheckIn;
 use App\Conversation\Flows\City;
 use App\Conversation\Flows\Contacts;
 use App\Conversation\Flows\DateOfBirth;
@@ -167,6 +168,11 @@ class Conversation extends AbstractConversation
         if(hash_equals($state->status, 'editedCity') && hash_equals($option, 'customCity'))
         {
             $this->sendCustomMessage(City::class);
+        }
+
+        if(hash_equals($state->status, 'checkin.data'))
+        {
+            $this->sendMessage(CheckIn::class);
         }
     }
 }
