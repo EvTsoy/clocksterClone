@@ -60,6 +60,7 @@ abstract class AbstractConversation
     public function storeData($flowClass)
     {
         $flow = $this->setData($flowClass);
+        $flow->storeData();
     }
 
     public function storeCity($flowClass)

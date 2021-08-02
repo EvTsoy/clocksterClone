@@ -137,7 +137,7 @@ class Conversation extends AbstractConversation
         {
             $this->sendAllCheckIns(CheckIn::class);
 
-//            $this->sendMessage(Profile::class);
+            $this->sendMessage(Profile::class);
             $this->changeStatus('registered');
         }
 
@@ -146,8 +146,7 @@ class Conversation extends AbstractConversation
         {
             $this->checkIn(Notification::class);
 
-//            $this->sendMessage(Profile::class);
-//            $this->showProfile(Profile::class);
+            $this->sendMessage(Profile::class);
             $this->changeStatus('registered');
         }
 
